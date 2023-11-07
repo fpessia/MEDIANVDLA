@@ -100,9 +100,9 @@ module FP32_ADD_mgc_shift_bl_v4(a,s,z);
       input [width_a  :0] arg1;
       input [width_s-1:0] arg2;
       input sbit;
-      parameter olen = width_z;
-      parameter ilen = width_a+1;
-      parameter len = (ilen >= olen) ? ilen : olen;
+      int olen = width_z;
+      int ilen = width_a+1;
+      int len = (ilen >= olen) ? ilen : olen;
       reg [len-1:0] result;
       reg [len-1:0] result_t;
       begin
@@ -126,9 +126,9 @@ module FP32_ADD_mgc_shift_bl_v4(a,s,z);
       input [width_a-1:0] arg1;
       input [width_s-1:0] arg2;
       input sbit;
-      parameter olen = width_z;
-      parameter ilen = signd_a ? width_a : width_a+1;
-      parameter len = (ilen >= olen) ? ilen : olen;
+      int olen = width_z;
+      int ilen = signd_a ? width_a : width_a+1;
+      int len = (ilen >= olen) ? ilen : olen;
       reg signed [len-1:0] result;
       reg signed [len-1:0] result_t;
       begin
@@ -191,9 +191,9 @@ module FP32_ADD_mgc_shift_l_v4(a,s,z);
       input [width_a  :0] arg1;
       input [width_s-1:0] arg2;
       input sbit;
-      parameter olen = width_z;
-      parameter ilen = width_a+1;
-      parameter len = (ilen >= olen) ? ilen : olen;
+      int olen = width_z;
+      int ilen = width_a+1;
+      int len = (ilen >= olen) ? ilen : olen;
       reg [len-1:0] result;
       reg [len-1:0] result_t;
       begin
