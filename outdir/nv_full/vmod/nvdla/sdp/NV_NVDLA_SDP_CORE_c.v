@@ -1,42 +1,34 @@
 // ================================================================
 // NVDLA Open Source Project
-// 
-// Copyright(c) 2016 - 2017 NVIDIA Corporation.  Licensed under the
-// NVDLA Open Hardware License; Check "LICENSE" which comes with 
+//
+// Copyright(c) 2016 - 2017 NVIDIA Corporation. Licensed under the
+// NVDLA Open Hardware License; Check "LICENSE" which comes with
 // this distribution for more information.
 // ================================================================
-
 // File Name: NV_NVDLA_SDP_CORE_c.v
 `timescale 10ps/1ps
 module SDP_C_mgc_in_wire_wait_v1 (ld, vd, d, lz, vz, z);
-
   parameter integer rscid = 1;
   parameter integer width = 8;
-
-  input              ld;
-  output             vd;
+  input ld;
+  output vd;
   output [width-1:0] d;
-  output             lz;
-  input              vz;
-  input  [width-1:0] z;
-
-  wire               vd;
-  wire   [width-1:0] d;
-  wire               lz;
-
+  output lz;
+  input vz;
+  input [width-1:0] z;
+  wire vd;
+  wire [width-1:0] d;
+  wire lz;
   assign d = z;
   assign lz = ld;
   assign vd = vz;
-
 endmodule
-
-
-//------> /home/tools/calypto/catapult-10.0-264918/Mgc_home/pkgs/siflibs/SDP_C_mgc_out_stdreg_wait_v1.v 
+//------> /home/tools/calypto/catapult-10.0-264918/Mgc_home/pkgs/siflibs/SDP_C_mgc_out_stdreg_wait_v1.v
 //------------------------------------------------------------------------------
 // Catapult Synthesis - Sample I/O Port Library
 //
 // Copyright (c) 2003-2015 Mentor Graphics Corp.
-//       All Rights Reserved
+// All Rights Reserved
 //
 // This document may be used and distributed without restriction provided that
 // this copyright statement is not removed from the file and that any derivative
@@ -44,42 +36,32 @@ endmodule
 //
 // The design information contained in this file is intended to be an example
 // of the functionality which the end user may study in preparation for creating
-// their own custom interfaces. This design does not necessarily present a 
+// their own custom interfaces. This design does not necessarily present a
 // complete implementation of the named protocol or standard.
 //
 //------------------------------------------------------------------------------
-
-
 module SDP_C_mgc_out_stdreg_wait_v1 (ld, vd, d, lz, vz, z);
-
   parameter integer rscid = 1;
   parameter integer width = 8;
-
-  input              ld;
-  output             vd;
-  input  [width-1:0] d;
-  output             lz;
-  input              vz;
+  input ld;
+  output vd;
+  input [width-1:0] d;
+  output lz;
+  input vz;
   output [width-1:0] z;
-
-  wire               vd;
-  wire               lz;
-  wire   [width-1:0] z;
-
+  wire vd;
+  wire lz;
+  wire [width-1:0] z;
   assign z = d;
   assign lz = ld;
   assign vd = vz;
-
 endmodule
-
-
-
-//------> /home/tools/calypto/catapult-10.0-264918/Mgc_home/pkgs/siflibs/SDP_C_mgc_in_wire_v1.v 
+//------> /home/tools/calypto/catapult-10.0-264918/Mgc_home/pkgs/siflibs/SDP_C_mgc_in_wire_v1.v
 //------------------------------------------------------------------------------
 // Catapult Synthesis - Sample I/O Port Library
 //
 // Copyright (c) 2003-2015 Mentor Graphics Corp.
-//       All Rights Reserved
+// All Rights Reserved
 //
 // This document may be used and distributed without restriction provided that
 // this copyright statement is not removed from the file and that any derivative
@@ -87,38 +69,27 @@ endmodule
 //
 // The design information contained in this file is intended to be an example
 // of the functionality which the end user may study in preparation for creating
-// their own custom interfaces. This design does not necessarily present a 
+// their own custom interfaces. This design does not necessarily present a
 // complete implementation of the named protocol or standard.
 //
 //------------------------------------------------------------------------------
-
-
 module SDP_C_mgc_in_wire_v1 (d, z);
-
   parameter integer rscid = 1;
   parameter integer width = 8;
-
   output [width-1:0] d;
-  input  [width-1:0] z;
-
-  wire   [width-1:0] d;
-
+  input [width-1:0] z;
+  wire [width-1:0] d;
   assign d = z;
-
 endmodule
-
-
-//------> /home/tools/calypto/catapult-10.0-264918/Mgc_home/pkgs/siflibs/mgc_shift_r_beh_v4.v 
+//------> /home/tools/calypto/catapult-10.0-264918/Mgc_home/pkgs/siflibs/mgc_shift_r_beh_v4.v
 module SDP_C_mgc_shift_r_v4(a,s,z);
-   parameter    width_a = 4;
-   parameter    signd_a = 1;
-   parameter    width_s = 2;
-   parameter    width_z = 8;
-
+   parameter width_a = 4;
+   parameter signd_a = 1;
+   parameter width_s = 2;
+   parameter width_z = 8;
    input [width_a-1:0] a;
    input [width_s-1:0] s;
    output [width_z -1:0] z;
-
    generate
      if (signd_a)
      begin: SIGNED
@@ -129,8 +100,7 @@ module SDP_C_mgc_shift_r_v4(a,s,z);
        assign z = fshr_u(a,s,1'b0);
      end
    endgenerate
-
-   //Shift right - unsigned shift argument
+//Shift right - unsigned shift argument
    function [width_z-1:0] fshr_u;
       input [width_a-1:0] arg1;
       input [width_s-1:0] arg2;
@@ -144,23 +114,19 @@ module SDP_C_mgc_shift_r_v4(a,s,z);
         result_t = $signed( {(len){sbit}} );
         result_t[width_a-1:0] = arg1;
         result = result_t >>> arg2;
-        fshr_u =  result[olen-1:0];
+        fshr_u = result[olen-1:0];
       end
    endfunction // fshl_u
-
 endmodule
-
-//------> /home/tools/calypto/catapult-10.0-264918/Mgc_home/pkgs/siflibs/mgc_shift_br_beh_v4.v 
+//------> /home/tools/calypto/catapult-10.0-264918/Mgc_home/pkgs/siflibs/mgc_shift_br_beh_v4.v
 module SDP_C_mgc_shift_br_v4(a,s,z);
-   parameter    width_a = 4;
-   parameter    signd_a = 1;
-   parameter    width_s = 2;
-   parameter    width_z = 8;
-
+   parameter width_a = 4;
+   parameter signd_a = 1;
+   parameter width_s = 2;
+   parameter width_z = 8;
    input [width_a-1:0] a;
    input [width_s-1:0] s;
    output [width_z -1:0] z;
-
    generate
      if (signd_a)
      begin: SIGNED
@@ -171,10 +137,9 @@ module SDP_C_mgc_shift_br_v4(a,s,z);
        assign z = fshr_s(a,s,1'b0);
      end
    endgenerate
-
-   //Shift-left - unsigned shift argument one bit more
+//Shift-left - unsigned shift argument one bit more
    function [width_z-1:0] fshl_u_1;
-      input [width_a  :0] arg1;
+      input [width_a :0] arg1;
       input [width_s-1:0] arg2;
       input sbit;
       int olen = width_z;
@@ -186,11 +151,10 @@ module SDP_C_mgc_shift_br_v4(a,s,z);
         result_t = {(len){sbit}};
         result_t[ilen-1:0] = arg1;
         result = result_t <<< arg2;
-        fshl_u_1 =  result[olen-1:0];
+        fshl_u_1 = result[olen-1:0];
       end
    endfunction // fshl_u
-
-   //Shift right - unsigned shift argument
+//Shift right - unsigned shift argument
    function [width_z-1:0] fshr_u;
       input [width_a-1:0] arg1;
       input [width_s-1:0] arg2;
@@ -204,11 +168,10 @@ module SDP_C_mgc_shift_br_v4(a,s,z);
         result_t = $signed( {(len){sbit}} );
         result_t[width_a-1:0] = arg1;
         result = result_t >>> arg2;
-        fshr_u =  result[olen-1:0];
+        fshr_u = result[olen-1:0];
       end
    endfunction // fshr_u
-
-   //Shift right - signed shift argument
+//Shift right - signed shift argument
    function [width_z-1:0] fshr_s;
      input [width_a-1:0] arg1;
      input [width_s-1:0] arg2;
@@ -223,21 +186,17 @@ module SDP_C_mgc_shift_br_v4(a,s,z);
          fshr_s = fshl_u_1({arg1, 1'b0},~arg2, sbit);
        end
      end
-   endfunction 
-
+   endfunction
 endmodule
-
-//------> /home/tools/calypto/catapult-10.0-264918/Mgc_home/pkgs/siflibs/mgc_shift_l_beh_v4.v 
+//------> /home/tools/calypto/catapult-10.0-264918/Mgc_home/pkgs/siflibs/mgc_shift_l_beh_v4.v
 module SDP_C_mgc_shift_l_v4(a,s,z);
-   parameter    width_a = 4;
-   parameter    signd_a = 1;
-   parameter    width_s = 2;
-   parameter    width_z = 8;
-
+   parameter width_a = 4;
+   parameter signd_a = 1;
+   parameter width_s = 2;
+   parameter width_z = 8;
    input [width_a-1:0] a;
    input [width_s-1:0] s;
    output [width_z -1:0] z;
-
    generate
    if (signd_a)
    begin: SIGNED
@@ -248,10 +207,9 @@ module SDP_C_mgc_shift_l_v4(a,s,z);
       assign z = fshl_u(a,s,1'b0);
    end
    endgenerate
-
-   //Shift-left - unsigned shift argument one bit more
+//Shift-left - unsigned shift argument one bit more
    function [width_z-1:0] fshl_u_1;
-      input [width_a  :0] arg1;
+      input [width_a :0] arg1;
       input [width_s-1:0] arg2;
       input sbit;
       int olen = width_z;
@@ -263,44 +221,36 @@ module SDP_C_mgc_shift_l_v4(a,s,z);
         result_t = {(len){sbit}};
         result_t[ilen-1:0] = arg1;
         result = result_t <<< arg2;
-        fshl_u_1 =  result[olen-1:0];
+        fshl_u_1 = result[olen-1:0];
       end
    endfunction // fshl_u
-
-   //Shift-left - unsigned shift argument
+//Shift-left - unsigned shift argument
    function [width_z-1:0] fshl_u;
       input [width_a-1:0] arg1;
       input [width_s-1:0] arg2;
       input sbit;
       fshl_u = fshl_u_1({sbit,arg1} ,arg2, sbit);
    endfunction // fshl_u
-
 endmodule
-
-//------> ../td_ccore_solutions/leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_0/rtl.v 
+//------> ../td_ccore_solutions/leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_0/rtl.v
 // ----------------------------------------------------------------------
-//  HLS HDL:        Verilog Netlister
-//  HLS Version:    10.0/264918 Production Release
-//  HLS Date:       Mon Aug  8 13:35:54 PDT 2016
-// 
-//  Generated by:   ezhang@hk-sim-11-129
-//  Generated date: Thu May  4 10:35:41 2017
+// HLS HDL: Verilog Netlister
+// HLS Version: 10.0/264918 Production Release
+// HLS Date: Mon Aug 8 13:35:54 PDT 2016
+//
+// Generated by: ezhang@hk-sim-11-129
+// Generated date: Thu May 4 10:35:41 2017
 // ----------------------------------------------------------------------
-
-// 
+//
 // ------------------------------------------------------------------
-//  Design Unit:    SDP_C_leading_sign_17_0
+// Design Unit: SDP_C_leading_sign_17_0
 // ------------------------------------------------------------------
-
-
 module SDP_C_leading_sign_17_0 (
   mantissa, rtn
 );
   input [16:0] mantissa;
   output [4:0] rtn;
-
-
-  // Interconnect Declarations
+// Interconnect Declarations
   wire IntLeadZero_17U_leading_sign_17_0_rtn_wrs_c_6_2_sdt_2;
   wire IntLeadZero_17U_leading_sign_17_0_rtn_wrs_c_18_3_sdt_3;
   wire IntLeadZero_17U_leading_sign_17_0_rtn_wrs_c_26_2_sdt_2;
@@ -313,13 +263,11 @@ module SDP_C_leading_sign_17_0 (
   wire c_h_1_5;
   wire c_h_1_6;
   wire c_h_1_7;
-
   wire[0:0] IntLeadZero_17U_leading_sign_17_0_rtn_and_63_nl;
   wire[0:0] IntLeadZero_17U_leading_sign_17_0_rtn_IntLeadZero_17U_leading_sign_17_0_rtn_nor_nl;
   wire[0:0] IntLeadZero_17U_leading_sign_17_0_rtn_IntLeadZero_17U_leading_sign_17_0_rtn_nor_10_nl;
   wire[0:0] IntLeadZero_17U_leading_sign_17_0_rtn_IntLeadZero_17U_leading_sign_17_0_rtn_or_nl;
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   assign IntLeadZero_17U_leading_sign_17_0_rtn_wrs_c_6_2_sdt_2 = ~((mantissa[14:13]!=2'b00));
   assign IntLeadZero_17U_leading_sign_17_0_rtn_wrs_c_6_2_sdt_1 = ~((mantissa[16:15]!=2'b00));
   assign IntLeadZero_17U_leading_sign_17_0_rtn_wrs_c_14_2_sdt_1 = ~((mantissa[12:11]!=2'b00));
@@ -352,61 +300,42 @@ module SDP_C_leading_sign_17_0 (
       , (IntLeadZero_17U_leading_sign_17_0_rtn_IntLeadZero_17U_leading_sign_17_0_rtn_nor_10_nl)
       , (IntLeadZero_17U_leading_sign_17_0_rtn_IntLeadZero_17U_leading_sign_17_0_rtn_or_nl)};
 endmodule
-
-
-
-
-//------> ./rtl.v 
+//------> ./rtl.v
 // ----------------------------------------------------------------------
-//  HLS HDL:        Verilog Netlister
-//  HLS Version:    10.0/264918 Production Release
-//  HLS Date:       Mon Aug  8 13:35:54 PDT 2016
-// 
-//  Generated by:   ezhang@hk-sim-10-055
-//  Generated date: Thu Jul  6 14:02:16 2017
+// HLS HDL: Verilog Netlister
+// HLS Version: 10.0/264918 Production Release
+// HLS Date: Mon Aug 8 13:35:54 PDT 2016
+//
+// Generated by: ezhang@hk-sim-10-055
+// Generated date: Thu Jul 6 14:02:16 2017
 // ----------------------------------------------------------------------
-
-// 
+//
 // ------------------------------------------------------------------
-//  Design Unit:    SDP_C_chn_out_rsci_unreg
+// Design Unit: SDP_C_chn_out_rsci_unreg
 // ------------------------------------------------------------------
-
-
 module SDP_C_chn_out_rsci_unreg (
   in_0, outsig
 );
   input in_0;
   output outsig;
-
-
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   assign outsig = in_0;
 endmodule
-
 // ------------------------------------------------------------------
-//  Design Unit:    SDP_C_chn_in_rsci_unreg
+// Design Unit: SDP_C_chn_in_rsci_unreg
 // ------------------------------------------------------------------
-
-
 module SDP_C_chn_in_rsci_unreg (
   in_0, outsig
 );
   input in_0;
   output outsig;
-
-
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   assign outsig = in_0;
 endmodule
-
 // ------------------------------------------------------------------
-//  Design Unit:    NV_NVDLA_SDP_CORE_c_core_core_fsm
-//  FSM Module
+// Design Unit: NV_NVDLA_SDP_CORE_c_core_core_fsm
+// FSM Module
 // ------------------------------------------------------------------
-
-
 module NV_NVDLA_SDP_CORE_c_core_core_fsm (
   nvdla_core_clk, nvdla_core_rstn, core_wen, fsm_output
 );
@@ -415,18 +344,13 @@ module NV_NVDLA_SDP_CORE_c_core_core_fsm (
   input core_wen;
   output [1:0] fsm_output;
   reg [1:0] fsm_output;
-
-
-  // FSM State Type Declaration for NV_NVDLA_SDP_CORE_c_core_core_fsm_1
+// FSM State Type Declaration for NV_NVDLA_SDP_CORE_c_core_core_fsm_1
   parameter
     core_rlp_C_0 = 1'd0,
     main_C_0 = 1'd1;
-
   reg [0:0] state_var;
   reg [0:0] state_var_NS;
-
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   always @(*)
   begin : NV_NVDLA_SDP_CORE_c_core_core_fsm_1
     case (state_var)
@@ -434,14 +358,13 @@ module NV_NVDLA_SDP_CORE_c_core_core_fsm (
         fsm_output = 2'b10;
         state_var_NS = main_C_0;
       end
-      // core_rlp_C_0
+// core_rlp_C_0
       default : begin
         fsm_output = 2'b1;
         state_var_NS = main_C_0;
       end
     endcase
   end
-
   always @(posedge nvdla_core_clk or negedge nvdla_core_rstn) begin
     if ( ~ nvdla_core_rstn ) begin
       state_var <= core_rlp_C_0;
@@ -450,14 +373,10 @@ module NV_NVDLA_SDP_CORE_c_core_core_fsm (
       state_var <= state_var_NS;
     end
   end
-
 endmodule
-
 // ------------------------------------------------------------------
-//  Design Unit:    NV_NVDLA_SDP_CORE_c_core_staller
+// Design Unit: NV_NVDLA_SDP_CORE_c_core_staller
 // ------------------------------------------------------------------
-
-
 module NV_NVDLA_SDP_CORE_c_core_staller (
   nvdla_core_clk, nvdla_core_rstn, core_wen, chn_in_rsci_wen_comp, core_wten, chn_out_rsci_wen_comp
 );
@@ -468,10 +387,7 @@ module NV_NVDLA_SDP_CORE_c_core_staller (
   output core_wten;
   reg core_wten;
   input chn_out_rsci_wen_comp;
-
-
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   assign core_wen = chn_in_rsci_wen_comp & chn_out_rsci_wen_comp;
   always @(posedge nvdla_core_clk or negedge nvdla_core_rstn) begin
     if ( ~ nvdla_core_rstn ) begin
@@ -482,12 +398,9 @@ module NV_NVDLA_SDP_CORE_c_core_staller (
     end
   end
 endmodule
-
 // ------------------------------------------------------------------
-//  Design Unit:    NV_NVDLA_SDP_CORE_c_core_chn_out_rsci_chn_out_wait_dp
+// Design Unit: NV_NVDLA_SDP_CORE_c_core_chn_out_rsci_chn_out_wait_dp
 // ------------------------------------------------------------------
-
-
 module NV_NVDLA_SDP_CORE_c_core_chn_out_rsci_chn_out_wait_dp (
   nvdla_core_clk, nvdla_core_rstn, chn_out_rsci_oswt, chn_out_rsci_bawt, chn_out_rsci_wen_comp,
       chn_out_rsci_biwt, chn_out_rsci_bdwt
@@ -499,13 +412,9 @@ module NV_NVDLA_SDP_CORE_c_core_chn_out_rsci_chn_out_wait_dp (
   output chn_out_rsci_wen_comp;
   input chn_out_rsci_biwt;
   input chn_out_rsci_bdwt;
-
-
-  // Interconnect Declarations
+// Interconnect Declarations
   reg chn_out_rsci_bcwt;
-
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   assign chn_out_rsci_bawt = chn_out_rsci_biwt | chn_out_rsci_bcwt;
   assign chn_out_rsci_wen_comp = (~ chn_out_rsci_oswt) | chn_out_rsci_bawt;
   always @(posedge nvdla_core_clk or negedge nvdla_core_rstn) begin
@@ -517,12 +426,9 @@ module NV_NVDLA_SDP_CORE_c_core_chn_out_rsci_chn_out_wait_dp (
     end
   end
 endmodule
-
 // ------------------------------------------------------------------
-//  Design Unit:    NV_NVDLA_SDP_CORE_c_core_chn_out_rsci_chn_out_wait_ctrl
+// Design Unit: NV_NVDLA_SDP_CORE_c_core_chn_out_rsci_chn_out_wait_ctrl
 // ------------------------------------------------------------------
-
-
 module NV_NVDLA_SDP_CORE_c_core_chn_out_rsci_chn_out_wait_ctrl (
   nvdla_core_clk, nvdla_core_rstn, chn_out_rsci_oswt, core_wen, core_wten, chn_out_rsci_iswt0,
       chn_out_rsci_ld_core_psct, chn_out_rsci_biwt, chn_out_rsci_bdwt, chn_out_rsci_ld_core_sct,
@@ -539,15 +445,11 @@ module NV_NVDLA_SDP_CORE_c_core_chn_out_rsci_chn_out_wait_ctrl (
   output chn_out_rsci_bdwt;
   output chn_out_rsci_ld_core_sct;
   input chn_out_rsci_vd;
-
-
-  // Interconnect Declarations
+// Interconnect Declarations
   wire chn_out_rsci_ogwt;
   wire chn_out_rsci_pdswt0;
   reg chn_out_rsci_icwt;
-
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   assign chn_out_rsci_pdswt0 = (~ core_wten) & chn_out_rsci_iswt0;
   assign chn_out_rsci_biwt = chn_out_rsci_ogwt & chn_out_rsci_vd;
   assign chn_out_rsci_ogwt = chn_out_rsci_pdswt0 | chn_out_rsci_icwt;
@@ -562,12 +464,9 @@ module NV_NVDLA_SDP_CORE_c_core_chn_out_rsci_chn_out_wait_ctrl (
     end
   end
 endmodule
-
 // ------------------------------------------------------------------
-//  Design Unit:    NV_NVDLA_SDP_CORE_c_core_chn_in_rsci_chn_in_wait_dp
+// Design Unit: NV_NVDLA_SDP_CORE_c_core_chn_in_rsci_chn_in_wait_dp
 // ------------------------------------------------------------------
-
-
 module NV_NVDLA_SDP_CORE_c_core_chn_in_rsci_chn_in_wait_dp (
   nvdla_core_clk, nvdla_core_rstn, chn_in_rsci_oswt, chn_in_rsci_bawt, chn_in_rsci_wen_comp,
       chn_in_rsci_d_mxwt, chn_in_rsci_biwt, chn_in_rsci_bdwt, chn_in_rsci_d
@@ -581,14 +480,10 @@ module NV_NVDLA_SDP_CORE_c_core_chn_in_rsci_chn_in_wait_dp (
   input chn_in_rsci_biwt;
   input chn_in_rsci_bdwt;
   input [511:0] chn_in_rsci_d;
-
-
-  // Interconnect Declarations
+// Interconnect Declarations
   reg chn_in_rsci_bcwt;
   reg [511:0] chn_in_rsci_d_bfwt;
-
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   assign chn_in_rsci_bawt = chn_in_rsci_biwt | chn_in_rsci_bcwt;
   assign chn_in_rsci_wen_comp = (~ chn_in_rsci_oswt) | chn_in_rsci_bawt;
   assign chn_in_rsci_d_mxwt = MUX_v_512_2_2(chn_in_rsci_d, chn_in_rsci_d_bfwt, chn_in_rsci_bcwt);
@@ -602,7 +497,6 @@ module NV_NVDLA_SDP_CORE_c_core_chn_in_rsci_chn_in_wait_dp (
       chn_in_rsci_d_bfwt <= chn_in_rsci_d_mxwt;
     end
   end
-
   function [511:0] MUX_v_512_2_2;
     input [511:0] input_0;
     input [511:0] input_1;
@@ -620,14 +514,10 @@ module NV_NVDLA_SDP_CORE_c_core_chn_in_rsci_chn_in_wait_dp (
     MUX_v_512_2_2 = result;
   end
   endfunction
-
 endmodule
-
 // ------------------------------------------------------------------
-//  Design Unit:    NV_NVDLA_SDP_CORE_c_core_chn_in_rsci_chn_in_wait_ctrl
+// Design Unit: NV_NVDLA_SDP_CORE_c_core_chn_in_rsci_chn_in_wait_ctrl
 // ------------------------------------------------------------------
-
-
 module NV_NVDLA_SDP_CORE_c_core_chn_in_rsci_chn_in_wait_ctrl (
   nvdla_core_clk, nvdla_core_rstn, chn_in_rsci_oswt, core_wen, chn_in_rsci_iswt0,
       chn_in_rsci_ld_core_psct, core_wten, chn_in_rsci_biwt, chn_in_rsci_bdwt, chn_in_rsci_ld_core_sct,
@@ -644,15 +534,11 @@ module NV_NVDLA_SDP_CORE_c_core_chn_in_rsci_chn_in_wait_ctrl (
   output chn_in_rsci_bdwt;
   output chn_in_rsci_ld_core_sct;
   input chn_in_rsci_vd;
-
-
-  // Interconnect Declarations
+// Interconnect Declarations
   wire chn_in_rsci_ogwt;
   wire chn_in_rsci_pdswt0;
   reg chn_in_rsci_icwt;
-
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   assign chn_in_rsci_pdswt0 = (~ core_wten) & chn_in_rsci_iswt0;
   assign chn_in_rsci_biwt = chn_in_rsci_ogwt & chn_in_rsci_vd;
   assign chn_in_rsci_ogwt = chn_in_rsci_pdswt0 | chn_in_rsci_icwt;
@@ -667,12 +553,9 @@ module NV_NVDLA_SDP_CORE_c_core_chn_in_rsci_chn_in_wait_ctrl (
     end
   end
 endmodule
-
 // ------------------------------------------------------------------
-//  Design Unit:    NV_NVDLA_SDP_CORE_c_core_chn_out_rsci
+// Design Unit: NV_NVDLA_SDP_CORE_c_core_chn_out_rsci
 // ------------------------------------------------------------------
-
-
 module NV_NVDLA_SDP_CORE_c_core_chn_out_rsci (
   nvdla_core_clk, nvdla_core_rstn, chn_out_rsc_z, chn_out_rsc_vz, chn_out_rsc_lz,
       chn_out_rsci_oswt, core_wen, core_wten, chn_out_rsci_iswt0, chn_out_rsci_bawt,
@@ -691,16 +574,12 @@ module NV_NVDLA_SDP_CORE_c_core_chn_out_rsci (
   output chn_out_rsci_wen_comp;
   input chn_out_rsci_ld_core_psct;
   input [271:0] chn_out_rsci_d;
-
-
-  // Interconnect Declarations
+// Interconnect Declarations
   wire chn_out_rsci_biwt;
   wire chn_out_rsci_bdwt;
   wire chn_out_rsci_ld_core_sct;
   wire chn_out_rsci_vd;
-
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   SDP_C_mgc_out_stdreg_wait_v1 #(.rscid(32'sd8),
   .width(32'sd272)) chn_out_rsci (
       .ld(chn_out_rsci_ld_core_sct),
@@ -735,12 +614,9 @@ module NV_NVDLA_SDP_CORE_c_core_chn_out_rsci (
       .chn_out_rsci_bdwt(chn_out_rsci_bdwt)
     );
 endmodule
-
 // ------------------------------------------------------------------
-//  Design Unit:    NV_NVDLA_SDP_CORE_c_core_chn_in_rsci
+// Design Unit: NV_NVDLA_SDP_CORE_c_core_chn_in_rsci
 // ------------------------------------------------------------------
-
-
 module NV_NVDLA_SDP_CORE_c_core_chn_in_rsci (
   nvdla_core_clk, nvdla_core_rstn, chn_in_rsc_z, chn_in_rsc_vz, chn_in_rsc_lz, chn_in_rsci_oswt,
       core_wen, chn_in_rsci_iswt0, chn_in_rsci_bawt, chn_in_rsci_wen_comp, chn_in_rsci_ld_core_psct,
@@ -759,17 +635,13 @@ module NV_NVDLA_SDP_CORE_c_core_chn_in_rsci (
   input chn_in_rsci_ld_core_psct;
   output [511:0] chn_in_rsci_d_mxwt;
   input core_wten;
-
-
-  // Interconnect Declarations
+// Interconnect Declarations
   wire chn_in_rsci_biwt;
   wire chn_in_rsci_bdwt;
   wire chn_in_rsci_ld_core_sct;
   wire chn_in_rsci_vd;
   wire [511:0] chn_in_rsci_d;
-
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   SDP_C_mgc_in_wire_wait_v1 #(.rscid(32'sd1),
   .width(32'sd512)) chn_in_rsci (
       .ld(chn_in_rsci_ld_core_sct),
@@ -806,12 +678,9 @@ module NV_NVDLA_SDP_CORE_c_core_chn_in_rsci (
       .chn_in_rsci_d(chn_in_rsci_d)
     );
 endmodule
-
 // ------------------------------------------------------------------
-//  Design Unit:    NV_NVDLA_SDP_CORE_c_core
+// Design Unit: NV_NVDLA_SDP_CORE_c_core
 // ------------------------------------------------------------------
-
-
 module NV_NVDLA_SDP_CORE_c_core (
   nvdla_core_clk, nvdla_core_rstn, chn_in_rsc_z, chn_in_rsc_vz, chn_in_rsc_lz, cfg_offset_rsc_z,
       cfg_scale_rsc_z, cfg_truncate_rsc_z, cfg_proc_precision_rsc_z, cfg_out_precision_rsc_z,
@@ -836,9 +705,7 @@ module NV_NVDLA_SDP_CORE_c_core (
   output chn_in_rsci_oswt_unreg;
   input chn_out_rsci_oswt;
   output chn_out_rsci_oswt_unreg;
-
-
-  // Interconnect Declarations
+// Interconnect Declarations
   wire core_wen;
   reg chn_in_rsci_iswt0;
   wire chn_in_rsci_bawt;
@@ -3926,7 +3793,6 @@ module NV_NVDLA_SDP_CORE_c_core (
   wire cvt_14_FpIntToFloat_17U_5U_10U_else_else_1_if_if_acc_6_tmp_4;
   wire cvt_15_FpIntToFloat_17U_5U_10U_else_else_1_if_if_acc_6_tmp_4;
   wire cvt_16_FpIntToFloat_17U_5U_10U_else_else_1_if_if_acc_8_tmp_4;
-
   wire[0:0] shift_0_prb;
   wire[0:0] and_15;
   wire[0:0] shift_0_prb_1;
@@ -6985,8 +6851,7 @@ module NV_NVDLA_SDP_CORE_c_core (
   wire[0:0] mux_2352_nl;
   wire[0:0] mux_2356_nl;
   wire[0:0] mux_2358_nl;
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   wire [111:0] nl_cvt_2_IntShiftRight_49U_6U_17U_mbits_fixed_rshift_1_rg_a;
   assign nl_cvt_2_IntShiftRight_49U_6U_17U_mbits_fixed_rshift_1_rg_a = {IntMulExt_33U_16U_49U_return_2_sva_2
       , 63'b0};
@@ -7857,7 +7722,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_16),
       .z(FpIntToFloat_17U_5U_10U_else_int_mant_1_sva)
     );
-  SDP_C_leading_sign_17_0  cvt_1_leading_sign_17_0_rg (
+  SDP_C_leading_sign_17_0 cvt_1_leading_sign_17_0_rg (
       .mantissa(nl_cvt_1_leading_sign_17_0_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_16)
     );
@@ -7869,7 +7734,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_17),
       .z(FpIntToFloat_17U_5U_10U_else_int_mant_2_sva)
     );
-  SDP_C_leading_sign_17_0  cvt_2_leading_sign_17_0_1_rg (
+  SDP_C_leading_sign_17_0 cvt_2_leading_sign_17_0_1_rg (
       .mantissa(nl_cvt_2_leading_sign_17_0_1_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_17)
     );
@@ -7881,7 +7746,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_18),
       .z(cvt_3_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_1_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_3_leading_sign_17_0_1_rg (
+  SDP_C_leading_sign_17_0 cvt_3_leading_sign_17_0_1_rg (
       .mantissa(nl_cvt_3_leading_sign_17_0_1_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_18)
     );
@@ -7893,7 +7758,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_19),
       .z(cvt_4_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_2_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_4_leading_sign_17_0_2_rg (
+  SDP_C_leading_sign_17_0 cvt_4_leading_sign_17_0_2_rg (
       .mantissa(nl_cvt_4_leading_sign_17_0_2_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_19)
     );
@@ -7905,7 +7770,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_20),
       .z(cvt_5_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_1_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_5_leading_sign_17_0_1_rg (
+  SDP_C_leading_sign_17_0 cvt_5_leading_sign_17_0_1_rg (
       .mantissa(nl_cvt_5_leading_sign_17_0_1_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_20)
     );
@@ -7917,7 +7782,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_21),
       .z(cvt_6_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_2_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_6_leading_sign_17_0_2_rg (
+  SDP_C_leading_sign_17_0 cvt_6_leading_sign_17_0_2_rg (
       .mantissa(nl_cvt_6_leading_sign_17_0_2_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_21)
     );
@@ -7929,7 +7794,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_22),
       .z(cvt_7_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_2_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_7_leading_sign_17_0_2_rg (
+  SDP_C_leading_sign_17_0 cvt_7_leading_sign_17_0_2_rg (
       .mantissa(nl_cvt_7_leading_sign_17_0_2_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_22)
     );
@@ -7941,7 +7806,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_23),
       .z(cvt_8_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_3_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_8_leading_sign_17_0_3_rg (
+  SDP_C_leading_sign_17_0 cvt_8_leading_sign_17_0_3_rg (
       .mantissa(nl_cvt_8_leading_sign_17_0_3_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_23)
     );
@@ -7953,7 +7818,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_24),
       .z(FpIntToFloat_17U_5U_10U_else_int_mant_9_sva)
     );
-  SDP_C_leading_sign_17_0  cvt_9_leading_sign_17_0_1_rg (
+  SDP_C_leading_sign_17_0 cvt_9_leading_sign_17_0_1_rg (
       .mantissa(nl_cvt_9_leading_sign_17_0_1_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_24)
     );
@@ -7965,7 +7830,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_25),
       .z(cvt_10_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_2_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_10_leading_sign_17_0_2_rg (
+  SDP_C_leading_sign_17_0 cvt_10_leading_sign_17_0_2_rg (
       .mantissa(nl_cvt_10_leading_sign_17_0_2_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_25)
     );
@@ -7977,7 +7842,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_26),
       .z(cvt_11_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_2_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_11_leading_sign_17_0_2_rg (
+  SDP_C_leading_sign_17_0 cvt_11_leading_sign_17_0_2_rg (
       .mantissa(nl_cvt_11_leading_sign_17_0_2_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_26)
     );
@@ -7989,7 +7854,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_27),
       .z(cvt_12_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_3_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_12_leading_sign_17_0_3_rg (
+  SDP_C_leading_sign_17_0 cvt_12_leading_sign_17_0_3_rg (
       .mantissa(nl_cvt_12_leading_sign_17_0_3_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_27)
     );
@@ -8001,7 +7866,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_28),
       .z(cvt_13_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_2_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_13_leading_sign_17_0_2_rg (
+  SDP_C_leading_sign_17_0 cvt_13_leading_sign_17_0_2_rg (
       .mantissa(nl_cvt_13_leading_sign_17_0_2_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_28)
     );
@@ -8013,7 +7878,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_29),
       .z(cvt_14_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_3_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_14_leading_sign_17_0_3_rg (
+  SDP_C_leading_sign_17_0 cvt_14_leading_sign_17_0_3_rg (
       .mantissa(nl_cvt_14_leading_sign_17_0_3_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_29)
     );
@@ -8025,7 +7890,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_30),
       .z(cvt_15_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_3_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_15_leading_sign_17_0_3_rg (
+  SDP_C_leading_sign_17_0 cvt_15_leading_sign_17_0_3_rg (
       .mantissa(nl_cvt_15_leading_sign_17_0_3_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_30)
     );
@@ -8037,7 +7902,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       .s(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_31),
       .z(cvt_16_FpIntToFloat_17U_5U_10U_else_int_mant_lshift_4_tmp)
     );
-  SDP_C_leading_sign_17_0  cvt_16_leading_sign_17_0_4_rg (
+  SDP_C_leading_sign_17_0 cvt_16_leading_sign_17_0_4_rg (
       .mantissa(nl_cvt_16_leading_sign_17_0_4_rg_mantissa[16:0]),
       .rtn(libraries_leading_sign_17_0_6b58f91630d78ab00051ea7ca02e26cb4a6f_31)
     );
@@ -8506,405 +8371,405 @@ module NV_NVDLA_SDP_CORE_c_core (
       | cvt_1_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_svs_st_2));
   assign shift_0_prb = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_2_sva_2)
       , (chn_idata_data_sva_1_27_0_1[23])}) + 5'b1)), and_15);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0 : assert { shift_0_prb } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0 : assert { shift_0_prb } @rose(nvdla_core_clk);
   assign and_19 = and_dcpl_4 & main_stage_v_1 & cvt_2_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_1_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_2_sva_st_2
       | cvt_2_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_1_svs_st_2));
   assign shift_0_prb_1 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_3_sva_2)
       , (chn_idata_data_sva_1_59_31_1[24])}) + 5'b1)), and_19);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_1 : assert { shift_0_prb_1 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_1 : assert { shift_0_prb_1 } @rose(nvdla_core_clk);
   assign and_23 = and_dcpl_4 & main_stage_v_1 & cvt_3_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_1_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_3_sva_st_2
       | cvt_3_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_1_svs_st_2));
   assign shift_0_prb_2 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_4_sva_2)
       , (chn_idata_data_sva_1_91_63_1[24])}) + 5'b1)), and_23);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_1 : assert { shift_0_prb_2 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_1 : assert { shift_0_prb_2 } @rose(nvdla_core_clk);
   assign and_27 = and_dcpl_4 & main_stage_v_1 & cvt_4_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_2_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_4_sva_st_2
       | cvt_4_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_2_svs_st_2));
   assign shift_0_prb_3 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_5_sva_2)
       , (chn_idata_data_sva_1_123_95_1[24])}) + 5'b1)), and_27);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_2 : assert { shift_0_prb_3 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_2 : assert { shift_0_prb_3 } @rose(nvdla_core_clk);
   assign and_32 = and_dcpl_3 & main_stage_v_1 & cvt_5_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_1_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_5_sva_st_2
       | cvt_5_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_1_svs_st_2))
       & or_5189_cse;
   assign shift_0_prb_4 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_6_sva_2)
       , (chn_idata_data_sva_1_155_127_1[24])}) + 5'b1)), and_32);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_1 : assert { shift_0_prb_4 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_1 : assert { shift_0_prb_4 } @rose(nvdla_core_clk);
   assign and_37 = and_dcpl_3 & main_stage_v_1 & cvt_6_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_2_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_6_sva_st_2
       | cvt_6_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_2_svs_st_2))
       & or_5189_cse;
   assign shift_0_prb_5 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_7_sva_2)
       , (chn_idata_data_sva_1_187_159_1[24])}) + 5'b1)), and_37);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_2 : assert { shift_0_prb_5 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_2 : assert { shift_0_prb_5 } @rose(nvdla_core_clk);
   assign and_41 = and_dcpl_4 & main_stage_v_1 & (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_7_sva_st_2)
       & cvt_7_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_2_svs_st_2
       & (~ cvt_7_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_2_svs_st_2);
   assign shift_0_prb_6 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_8_sva_2)
       , (chn_idata_data_sva_1_219_191_1[24])}) + 5'b1)), and_41);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_2 : assert { shift_0_prb_6 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_2 : assert { shift_0_prb_6 } @rose(nvdla_core_clk);
   assign and_45 = and_dcpl_4 & main_stage_v_1 & cvt_8_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_3_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_8_sva_st_2
       | cvt_8_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_3_svs_st_2));
   assign shift_0_prb_7 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_9_sva_2)
       , (chn_idata_data_sva_1_251_223_1[24])}) + 5'b1)), and_45);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_3 : assert { shift_0_prb_7 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_3 : assert { shift_0_prb_7 } @rose(nvdla_core_clk);
   assign and_49 = and_dcpl_4 & main_stage_v_1 & cvt_9_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_1_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_9_sva_st_2
       | cvt_9_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_1_svs_st_2));
   assign shift_0_prb_8 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_10_sva_2)
       , (chn_idata_data_sva_1_283_255_1[24])}) + 5'b1)), and_49);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_1 : assert { shift_0_prb_8 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_1 : assert { shift_0_prb_8 } @rose(nvdla_core_clk);
   assign and_54 = and_dcpl_3 & main_stage_v_1 & cvt_10_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_2_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_10_sva_st_2
       | cvt_10_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_2_svs_st_2))
       & or_5189_cse;
   assign shift_0_prb_9 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_11_sva_2)
       , (chn_idata_data_sva_1_315_287_1[24])}) + 5'b1)), and_54);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_2 : assert { shift_0_prb_9 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_2 : assert { shift_0_prb_9 } @rose(nvdla_core_clk);
   assign and_58 = and_dcpl_4 & main_stage_v_1 & cvt_11_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_2_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_11_sva_st_2
       | cvt_11_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_2_svs_st_2));
   assign shift_0_prb_10 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_12_sva_2)
       , (chn_idata_data_sva_1_347_319_1[24])}) + 5'b1)), and_58);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_2 : assert { shift_0_prb_10 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_2 : assert { shift_0_prb_10 } @rose(nvdla_core_clk);
   assign and_62 = and_dcpl_4 & main_stage_v_1 & cvt_12_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_3_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_12_sva_st_2
       | cvt_12_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_3_svs_st_2));
   assign shift_0_prb_11 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_13_sva_2)
       , (chn_idata_data_sva_1_379_351_1[24])}) + 5'b1)), and_62);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_3 : assert { shift_0_prb_11 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_3 : assert { shift_0_prb_11 } @rose(nvdla_core_clk);
   assign and_67 = and_dcpl_3 & main_stage_v_1 & cvt_13_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_2_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_13_sva_st_2
       | cvt_13_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_2_svs_st_2))
       & or_5189_cse;
   assign shift_0_prb_12 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_14_sva_2)
       , (chn_idata_data_sva_1_411_383_1[24])}) + 5'b1)), and_67);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_2 : assert { shift_0_prb_12 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_2 : assert { shift_0_prb_12 } @rose(nvdla_core_clk);
   assign and_71 = and_dcpl_4 & main_stage_v_1 & cvt_14_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_3_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_14_sva_st_2
       | cvt_14_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_3_svs_st_2));
   assign shift_0_prb_13 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_15_sva_2)
       , (chn_idata_data_sva_1_443_415_1[24])}) + 5'b1)), and_71);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_3 : assert { shift_0_prb_13 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_3 : assert { shift_0_prb_13 } @rose(nvdla_core_clk);
   assign and_75 = and_dcpl_4 & main_stage_v_1 & cvt_15_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_3_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_15_sva_st_2
       | cvt_15_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_3_svs_st_2));
   assign shift_0_prb_14 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_16_sva_2)
       , (chn_idata_data_sva_1_475_447_1[24])}) + 5'b1)), and_75);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_3 : assert { shift_0_prb_14 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_3 : assert { shift_0_prb_14 } @rose(nvdla_core_clk);
   assign and_79 = and_dcpl_4 & main_stage_v_1 & cvt_16_FpWidthDec_8U_23U_5U_10U_1U_1U_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_8_4_svs_st_2
       & (~(FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_sva_st_2
       | cvt_16_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_8_4_svs_st_2));
   assign shift_0_prb_15 = MUX1HOT_s_1_1_2(readslicef_5_1_4((({1'b1 , (~ FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_1_sva_2)
       , (chn_idata_data_sva_1_507_479_1[24])}) + 5'b1)), and_79);
-  // assert(shift > 0) - ../include/nvdla_float.h: line 286
-  // PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_4 : assert { shift_0_prb_15 } @rose(nvdla_core_clk);
+// assert(shift > 0) - ../include/nvdla_float.h: line 286
+// PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln286_assert_shift_gt_0_4 : assert { shift_0_prb_15 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth : assert { iMantWidth_oMantWidth_prb } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth : assert { iMantWidth_oMantWidth_prb } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth : assert { iExpoWidth_oExpoWidth_prb } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth : assert { iExpoWidth_oExpoWidth_prb } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_1 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_1 : assert { iMantWidth_oMantWidth_prb_1 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_1 : assert { iMantWidth_oMantWidth_prb_1 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_1 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_1 : assert { iExpoWidth_oExpoWidth_prb_1 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_1 : assert { iExpoWidth_oExpoWidth_prb_1 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_2 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_1 : assert { iMantWidth_oMantWidth_prb_2 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_1 : assert { iMantWidth_oMantWidth_prb_2 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_2 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_1 : assert { iExpoWidth_oExpoWidth_prb_2 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_1 : assert { iExpoWidth_oExpoWidth_prb_2 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_3 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_2 : assert { iMantWidth_oMantWidth_prb_3 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_2 : assert { iMantWidth_oMantWidth_prb_3 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_3 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_2 : assert { iExpoWidth_oExpoWidth_prb_3 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_2 : assert { iExpoWidth_oExpoWidth_prb_3 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_4 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_1 : assert { iMantWidth_oMantWidth_prb_4 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_1 : assert { iMantWidth_oMantWidth_prb_4 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_4 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_1 : assert { iExpoWidth_oExpoWidth_prb_4 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_1 : assert { iExpoWidth_oExpoWidth_prb_4 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_5 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_2 : assert { iMantWidth_oMantWidth_prb_5 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_2 : assert { iMantWidth_oMantWidth_prb_5 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_5 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_2 : assert { iExpoWidth_oExpoWidth_prb_5 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_2 : assert { iExpoWidth_oExpoWidth_prb_5 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_6 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_2 : assert { iMantWidth_oMantWidth_prb_6 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_2 : assert { iMantWidth_oMantWidth_prb_6 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_6 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_2 : assert { iExpoWidth_oExpoWidth_prb_6 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_2 : assert { iExpoWidth_oExpoWidth_prb_6 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_7 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_3 : assert { iMantWidth_oMantWidth_prb_7 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_3 : assert { iMantWidth_oMantWidth_prb_7 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_7 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_3 : assert { iExpoWidth_oExpoWidth_prb_7 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_3 : assert { iExpoWidth_oExpoWidth_prb_7 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_8 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_1 : assert { iMantWidth_oMantWidth_prb_8 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_1 : assert { iMantWidth_oMantWidth_prb_8 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_8 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_1 : assert { iExpoWidth_oExpoWidth_prb_8 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_1 : assert { iExpoWidth_oExpoWidth_prb_8 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_9 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_2 : assert { iMantWidth_oMantWidth_prb_9 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_2 : assert { iMantWidth_oMantWidth_prb_9 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_9 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_2 : assert { iExpoWidth_oExpoWidth_prb_9 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_2 : assert { iExpoWidth_oExpoWidth_prb_9 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_10 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_2 : assert { iMantWidth_oMantWidth_prb_10 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_2 : assert { iMantWidth_oMantWidth_prb_10 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_10 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_2 : assert { iExpoWidth_oExpoWidth_prb_10 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_2 : assert { iExpoWidth_oExpoWidth_prb_10 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_11 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_3 : assert { iMantWidth_oMantWidth_prb_11 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_3 : assert { iMantWidth_oMantWidth_prb_11 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_11 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_3 : assert { iExpoWidth_oExpoWidth_prb_11 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_3 : assert { iExpoWidth_oExpoWidth_prb_11 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_12 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_2 : assert { iMantWidth_oMantWidth_prb_12 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_2 : assert { iMantWidth_oMantWidth_prb_12 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_12 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_2 : assert { iExpoWidth_oExpoWidth_prb_12 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_2 : assert { iExpoWidth_oExpoWidth_prb_12 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_13 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_3 : assert { iMantWidth_oMantWidth_prb_13 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_3 : assert { iMantWidth_oMantWidth_prb_13 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_13 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_3 : assert { iExpoWidth_oExpoWidth_prb_13 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_3 : assert { iExpoWidth_oExpoWidth_prb_13 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_14 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_3 : assert { iMantWidth_oMantWidth_prb_14 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_3 : assert { iMantWidth_oMantWidth_prb_14 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_14 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_3 : assert { iExpoWidth_oExpoWidth_prb_14 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_3 : assert { iExpoWidth_oExpoWidth_prb_14 } @rose(nvdla_core_clk);
   assign iMantWidth_oMantWidth_prb_15 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
-  // PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_4 : assert { iMantWidth_oMantWidth_prb_15 } @rose(nvdla_core_clk);
+// assert(iMantWidth >= oMantWidth) - ../include/nvdla_float.h: line 669
+// PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln669_assert_iMantWidth_ge_oMantWidth_4 : assert { iMantWidth_oMantWidth_prb_15 } @rose(nvdla_core_clk);
   assign iExpoWidth_oExpoWidth_prb_15 = cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4_sig_mx0w1;
-  // assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
-  // PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4 : assert { iExpoWidth_oExpoWidth_prb_15 } @rose(nvdla_core_clk);
+// assert(iExpoWidth >= oExpoWidth) - ../include/nvdla_float.h: line 670
+// PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_float_h_ln670_assert_iExpoWidth_ge_oExpoWidth_4 : assert { iExpoWidth_oExpoWidth_prb_15 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth : assert { oWidth_mWidth_prb } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth : assert { oWidth_mWidth_prb } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth : assert { oWidth_aWidth_bWidth_prb } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth : assert { oWidth_aWidth_bWidth_prb } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth : assert { oWidth_iWidth_prb } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth : assert { oWidth_iWidth_prb } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_1 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1 : assert { oWidth_iWidth_prb_1 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1 : assert { oWidth_iWidth_prb_1 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_1 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_1 : assert { oWidth_mWidth_prb_1 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_1 : assert { oWidth_mWidth_prb_1 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_1 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1 : assert { oWidth_aWidth_bWidth_prb_1 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1 : assert { oWidth_aWidth_bWidth_prb_1 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_2 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_2 : assert { oWidth_iWidth_prb_2 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_2 : assert { oWidth_iWidth_prb_2 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_3 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_3 : assert { oWidth_iWidth_prb_3 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_3 : assert { oWidth_iWidth_prb_3 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_2 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_1 : assert { oWidth_mWidth_prb_2 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_1 : assert { oWidth_mWidth_prb_2 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_2 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1 : assert { oWidth_aWidth_bWidth_prb_2 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1 : assert { oWidth_aWidth_bWidth_prb_2 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_4 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_2 : assert { oWidth_iWidth_prb_4 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_2 : assert { oWidth_iWidth_prb_4 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_5 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_3 : assert { oWidth_iWidth_prb_5 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_3_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_3 : assert { oWidth_iWidth_prb_5 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_3 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_2 : assert { oWidth_mWidth_prb_3 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_2 : assert { oWidth_mWidth_prb_3 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_3 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_2 : assert { oWidth_aWidth_bWidth_prb_3 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_2 : assert { oWidth_aWidth_bWidth_prb_3 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_6 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_4 : assert { oWidth_iWidth_prb_6 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_4 : assert { oWidth_iWidth_prb_6 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_7 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_5 : assert { oWidth_iWidth_prb_7 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_4_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_5 : assert { oWidth_iWidth_prb_7 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_4 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_1 : assert { oWidth_mWidth_prb_4 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_1 : assert { oWidth_mWidth_prb_4 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_4 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1 : assert { oWidth_aWidth_bWidth_prb_4 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1 : assert { oWidth_aWidth_bWidth_prb_4 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_8 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_2 : assert { oWidth_iWidth_prb_8 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_2 : assert { oWidth_iWidth_prb_8 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_9 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_3 : assert { oWidth_iWidth_prb_9 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_5_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_3 : assert { oWidth_iWidth_prb_9 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_5 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_2 : assert { oWidth_mWidth_prb_5 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_2 : assert { oWidth_mWidth_prb_5 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_5 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_2 : assert { oWidth_aWidth_bWidth_prb_5 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_2 : assert { oWidth_aWidth_bWidth_prb_5 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_10 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_4 : assert { oWidth_iWidth_prb_10 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_4 : assert { oWidth_iWidth_prb_10 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_11 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_5 : assert { oWidth_iWidth_prb_11 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_6_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_5 : assert { oWidth_iWidth_prb_11 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_6 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_2 : assert { oWidth_mWidth_prb_6 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_2 : assert { oWidth_mWidth_prb_6 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_6 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_2 : assert { oWidth_aWidth_bWidth_prb_6 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_2 : assert { oWidth_aWidth_bWidth_prb_6 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_12 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_4 : assert { oWidth_iWidth_prb_12 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_4 : assert { oWidth_iWidth_prb_12 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_13 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_5 : assert { oWidth_iWidth_prb_13 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_7_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_5 : assert { oWidth_iWidth_prb_13 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_7 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_3 : assert { oWidth_mWidth_prb_7 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_3 : assert { oWidth_mWidth_prb_7 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_7 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_3 : assert { oWidth_aWidth_bWidth_prb_7 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_3 : assert { oWidth_aWidth_bWidth_prb_7 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_14 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_6 : assert { oWidth_iWidth_prb_14 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_6 : assert { oWidth_iWidth_prb_14 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_15 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_7 : assert { oWidth_iWidth_prb_15 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_8_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_7 : assert { oWidth_iWidth_prb_15 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_8 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_1 : assert { oWidth_mWidth_prb_8 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_1 : assert { oWidth_mWidth_prb_8 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_8 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1 : assert { oWidth_aWidth_bWidth_prb_8 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1 : assert { oWidth_aWidth_bWidth_prb_8 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_16 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_2 : assert { oWidth_iWidth_prb_16 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_2 : assert { oWidth_iWidth_prb_16 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_17 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_3 : assert { oWidth_iWidth_prb_17 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_9_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_3 : assert { oWidth_iWidth_prb_17 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_9 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_2 : assert { oWidth_mWidth_prb_9 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_2 : assert { oWidth_mWidth_prb_9 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_9 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_2 : assert { oWidth_aWidth_bWidth_prb_9 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_2 : assert { oWidth_aWidth_bWidth_prb_9 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_18 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_4 : assert { oWidth_iWidth_prb_18 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_4 : assert { oWidth_iWidth_prb_18 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_19 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_5 : assert { oWidth_iWidth_prb_19 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_10_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_5 : assert { oWidth_iWidth_prb_19 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_10 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_2 : assert { oWidth_mWidth_prb_10 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_2 : assert { oWidth_mWidth_prb_10 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_10 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_2 : assert { oWidth_aWidth_bWidth_prb_10 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_2 : assert { oWidth_aWidth_bWidth_prb_10 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_20 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_4 : assert { oWidth_iWidth_prb_20 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_4 : assert { oWidth_iWidth_prb_20 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_21 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_5 : assert { oWidth_iWidth_prb_21 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_11_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_5 : assert { oWidth_iWidth_prb_21 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_11 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_3 : assert { oWidth_mWidth_prb_11 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_3 : assert { oWidth_mWidth_prb_11 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_11 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_3 : assert { oWidth_aWidth_bWidth_prb_11 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_3 : assert { oWidth_aWidth_bWidth_prb_11 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_22 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_6 : assert { oWidth_iWidth_prb_22 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_6 : assert { oWidth_iWidth_prb_22 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_23 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_7 : assert { oWidth_iWidth_prb_23 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_12_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_7 : assert { oWidth_iWidth_prb_23 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_12 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_2 : assert { oWidth_mWidth_prb_12 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_2 : assert { oWidth_mWidth_prb_12 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_12 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_2 : assert { oWidth_aWidth_bWidth_prb_12 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_2 : assert { oWidth_aWidth_bWidth_prb_12 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_24 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_4 : assert { oWidth_iWidth_prb_24 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_4 : assert { oWidth_iWidth_prb_24 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_25 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_5 : assert { oWidth_iWidth_prb_25 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_13_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_5 : assert { oWidth_iWidth_prb_25 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_13 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_3 : assert { oWidth_mWidth_prb_13 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_3 : assert { oWidth_mWidth_prb_13 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_13 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_3 : assert { oWidth_aWidth_bWidth_prb_13 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_3 : assert { oWidth_aWidth_bWidth_prb_13 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_26 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_6 : assert { oWidth_iWidth_prb_26 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_6 : assert { oWidth_iWidth_prb_26 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_27 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_7 : assert { oWidth_iWidth_prb_27 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_14_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_7 : assert { oWidth_iWidth_prb_27 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_14 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_3 : assert { oWidth_mWidth_prb_14 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_3 : assert { oWidth_mWidth_prb_14 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_14 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_3 : assert { oWidth_aWidth_bWidth_prb_14 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_3 : assert { oWidth_aWidth_bWidth_prb_14 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_28 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_6 : assert { oWidth_iWidth_prb_28 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_6 : assert { oWidth_iWidth_prb_28 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_29 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_7 : assert { oWidth_iWidth_prb_29 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_15_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_7 : assert { oWidth_iWidth_prb_29 } @rose(nvdla_core_clk);
   assign oWidth_mWidth_prb_15 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
-  // PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_4 : assert { oWidth_mWidth_prb_15 } @rose(nvdla_core_clk);
+// assert(oWidth > mWidth) - ../include/nvdla_int.h: line 281
+// PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln281_assert_oWidth_gt_mWidth_4 : assert { oWidth_mWidth_prb_15 } @rose(nvdla_core_clk);
   assign oWidth_aWidth_bWidth_prb_15 = cvt_2_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_1_sig_mx0w1;
-  // assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
-  // PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_4 : assert { oWidth_aWidth_bWidth_prb_15 } @rose(nvdla_core_clk);
+// assert(oWidth >= aWidth+bWidth) - ../include/nvdla_int.h: line 346
+// PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln346_assert_oWidth_ge_aWidth_p_bWidth_4 : assert { oWidth_aWidth_bWidth_prb_15 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_30 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_8 : assert { oWidth_iWidth_prb_30 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_8 : assert { oWidth_iWidth_prb_30 } @rose(nvdla_core_clk);
   assign oWidth_iWidth_prb_31 = cvt_1_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_1_sig_mx0w1;
-  // assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
-  // PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_9 : assert { oWidth_iWidth_prb_31 } @rose(nvdla_core_clk);
+// assert(oWidth <= iWidth) - ../include/nvdla_int.h: line 402
+// PSL cvt_16_NV_NVDLA_SDP_CORE_c_core_nvdla_int_h_ln402_assert_oWidth_le_iWidth_9 : assert { oWidth_iWidth_prb_31 } @rose(nvdla_core_clk);
   assign cvt_or_cse = cvt_asn_319 | (cvt_else_equal_tmp & (~ cfg_mode_eql_1_sva_6)
       & cvt_unequal_tmp_21);
   assign chn_out_and_cse = core_wen & (~ or_dcpl_4);
@@ -22615,58 +22480,58 @@ module NV_NVDLA_SDP_CORE_c_core (
   assign nl_cvt_1_IntSubExt_32U_32U_33U_o_acc_nl = conv_s2s_32_33(chn_in_rsci_d_mxwt[31:0])
       - conv_s2s_32_33(cfg_offset_rsci_d);
   assign cvt_1_IntSubExt_32U_32U_33U_o_acc_nl = nl_cvt_1_IntSubExt_32U_32U_33U_o_acc_nl[32:0];
-  assign nl_cvt_1_FpFloatToInt_16U_5U_10U_shift_acc_itm_2  = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_1_lpi_1_dfm_7_4_mx0w0)
+  assign nl_cvt_1_FpFloatToInt_16U_5U_10U_shift_acc_itm_2 = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_1_lpi_1_dfm_7_4_mx0w0)
       , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_1_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
   assign nor_2048_nl = ~((~ main_stage_v_2) | (cfg_out_precision_1_sva_st_149[1])
       | (cfg_proc_precision_1_sva_st_65[0]) | nand_219_cse);
   assign mux_162_nl = MUX_s_1_2_2((nor_2048_nl), nor_2047_cse, or_5189_cse);
-  assign nl_cvt_2_FpFloatToInt_16U_5U_10U_shift_acc_1_itm_2  = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_2_lpi_1_dfm_7_4_mx0w0)
+  assign nl_cvt_2_FpFloatToInt_16U_5U_10U_shift_acc_1_itm_2 = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_2_lpi_1_dfm_7_4_mx0w0)
       , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_2_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
-  assign nl_cvt_3_FpFloatToInt_16U_5U_10U_shift_acc_1_itm_2  = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_3_lpi_1_dfm_7_4_mx0w0)
+  assign nl_cvt_3_FpFloatToInt_16U_5U_10U_shift_acc_1_itm_2 = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_3_lpi_1_dfm_7_4_mx0w0)
       , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_3_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
-  assign nl_cvt_4_FpFloatToInt_16U_5U_10U_shift_acc_2_itm_2  = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_4_lpi_1_dfm_7_4_mx0w0)
+  assign nl_cvt_4_FpFloatToInt_16U_5U_10U_shift_acc_2_itm_2 = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_4_lpi_1_dfm_7_4_mx0w0)
       , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_4_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
-  assign nl_cvt_5_FpFloatToInt_16U_5U_10U_shift_acc_1_itm_2  = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_5_lpi_1_dfm_7_4_mx0w0)
+  assign nl_cvt_5_FpFloatToInt_16U_5U_10U_shift_acc_1_itm_2 = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_5_lpi_1_dfm_7_4_mx0w0)
       , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_5_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
   assign mux_167_nl = MUX_s_1_2_2(mux_166_cse, or_303_cse, or_300_cse);
-  assign nl_cvt_6_FpFloatToInt_16U_5U_10U_shift_acc_2_itm_2  = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_6_lpi_1_dfm_7_4_mx0w0)
+  assign nl_cvt_6_FpFloatToInt_16U_5U_10U_shift_acc_2_itm_2 = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_6_lpi_1_dfm_7_4_mx0w0)
       , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_6_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
-  assign nl_cvt_7_FpFloatToInt_16U_5U_10U_shift_acc_2_itm_2  = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_7_lpi_1_dfm_7_4_mx0w0)
+  assign nl_cvt_7_FpFloatToInt_16U_5U_10U_shift_acc_2_itm_2 = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_7_lpi_1_dfm_7_4_mx0w0)
       , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_7_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
-  assign nl_cvt_8_FpFloatToInt_16U_5U_10U_shift_acc_3_itm_2  = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_8_lpi_1_dfm_7_4_mx0w0)
+  assign nl_cvt_8_FpFloatToInt_16U_5U_10U_shift_acc_3_itm_2 = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_8_lpi_1_dfm_7_4_mx0w0)
       , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_8_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
-  assign nl_cvt_10_FpFloatToInt_16U_5U_10U_shift_acc_2_itm_2  = conv_u2u_4_5({(~
+  assign nl_cvt_10_FpFloatToInt_16U_5U_10U_shift_acc_2_itm_2 = conv_u2u_4_5({(~
       FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_10_lpi_1_dfm_7_4_mx0w0) , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_10_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
-  assign nl_cvt_11_FpFloatToInt_16U_5U_10U_shift_acc_2_itm_2  = conv_u2u_4_5({(~
+  assign nl_cvt_11_FpFloatToInt_16U_5U_10U_shift_acc_2_itm_2 = conv_u2u_4_5({(~
       FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_11_lpi_1_dfm_7_4_mx0w0) , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_11_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
-  assign nl_cvt_13_FpFloatToInt_16U_5U_10U_shift_acc_2_itm_2  = conv_u2u_4_5({(~
+  assign nl_cvt_13_FpFloatToInt_16U_5U_10U_shift_acc_2_itm_2 = conv_u2u_4_5({(~
       FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_13_lpi_1_dfm_7_4_mx0w0) , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_13_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
-  assign nl_cvt_15_FpFloatToInt_16U_5U_10U_shift_acc_3_itm_2  = conv_u2u_4_5({(~
+  assign nl_cvt_15_FpFloatToInt_16U_5U_10U_shift_acc_3_itm_2 = conv_u2u_4_5({(~
       FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_15_lpi_1_dfm_7_4_mx0w0) , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_15_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
-  assign nl_cvt_9_FpFloatToInt_16U_5U_10U_shift_acc_1_itm_2  = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_9_lpi_1_dfm_7_4_mx0w0)
+  assign nl_cvt_9_FpFloatToInt_16U_5U_10U_shift_acc_1_itm_2 = conv_u2u_4_5({(~ FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_9_lpi_1_dfm_7_4_mx0w0)
       , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_9_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
-  assign nl_cvt_12_FpFloatToInt_16U_5U_10U_shift_acc_3_itm_2  = conv_u2u_4_5({(~
+  assign nl_cvt_12_FpFloatToInt_16U_5U_10U_shift_acc_3_itm_2 = conv_u2u_4_5({(~
       FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_12_lpi_1_dfm_7_4_mx0w0) , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_12_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
-  assign nl_cvt_14_FpFloatToInt_16U_5U_10U_shift_acc_3_itm_2  = conv_u2u_4_5({(~
+  assign nl_cvt_14_FpFloatToInt_16U_5U_10U_shift_acc_3_itm_2 = conv_u2u_4_5({(~
       FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_14_lpi_1_dfm_7_4_mx0w0) , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_14_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
   assign mux_190_nl = MUX_s_1_2_2((~ main_stage_v_2), or_tmp_378, cfg_mode_eql_1_sva_5);
   assign mux_191_nl = MUX_s_1_2_2((mux_190_nl), mux_tmp_189, or_5189_cse);
-  assign nl_cvt_16_FpFloatToInt_16U_5U_10U_shift_acc_4_itm_2  = conv_u2u_4_5({(~
+  assign nl_cvt_16_FpFloatToInt_16U_5U_10U_shift_acc_4_itm_2 = conv_u2u_4_5({(~
       FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_lpi_1_dfm_7_4_mx0w0) , (~ (FpWidthDec_8U_23U_5U_10U_1U_1U_o_expo_lpi_1_dfm_7_3_0_mx0w0[3:1]))})
       + 5'b11101;
   assign mux_192_nl = MUX_s_1_2_2(or_tmp_378, or_306_cse, or_5189_cse);
@@ -23765,7 +23630,7 @@ module NV_NVDLA_SDP_CORE_c_core (
   assign or_2433_nl = (cfg_out_precision_rsci_d!=2'b01) | (cfg_proc_precision_rsci_d[0]);
   assign mux_1532_nl = MUX_s_1_2_2((mux_1531_nl), or_tmp_2432, or_2433_nl);
   assign mux_1533_nl = MUX_s_1_2_2(mux_tmp_189, (mux_1532_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_1_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_2_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_1_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_2_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[23]))}) + 5'b1101;
   assign nor_1263_nl = ~(cvt_1_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_itm_8_1
       | cvt_1_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_itm_7_1 | (~ cvt_1_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_itm_8_1)
@@ -23788,7 +23653,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_1_sva_2
       | nand_164_cse);
   assign mux_1535_nl = MUX_s_1_2_2((nor_1262_nl), (nor_1261_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_2_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_3_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_2_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_3_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[55]))}) + 5'b1101;
   assign nor_1259_nl = ~(cvt_2_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_1_itm_8_1
       | cvt_2_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_1_itm_7_1 | (~ cvt_2_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_1_itm_8_1)
@@ -23811,7 +23676,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_2_sva_2
       | nand_162_cse);
   assign mux_1537_nl = MUX_s_1_2_2((nor_1258_nl), (nor_1257_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_3_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_4_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_3_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_4_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[87]))}) + 5'b1101;
   assign nor_1255_nl = ~(cvt_3_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_1_itm_8_1
       | cvt_3_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_1_itm_7_1 | (~ cvt_3_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_1_itm_8_1)
@@ -23834,7 +23699,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_3_sva_2
       | nand_160_cse);
   assign mux_1539_nl = MUX_s_1_2_2((nor_1254_nl), (nor_1253_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_4_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_5_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_4_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_5_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[119]))}) + 5'b1101;
   assign nor_1251_nl = ~(cvt_4_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_2_itm_8_1
       | cvt_4_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_2_itm_7_1 | (~ cvt_4_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_2_itm_8_1)
@@ -23857,7 +23722,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_4_sva_2
       | nand_158_cse);
   assign mux_1541_nl = MUX_s_1_2_2((nor_1250_nl), (nor_1249_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_5_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_6_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_5_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_6_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[151]))}) + 5'b1101;
   assign nor_1247_nl = ~((~ or_tmp_2466) | cvt_5_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_1_itm_8_1
       | cvt_5_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_1_itm_7_1 | (~ cvt_5_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_1_itm_8_1)
@@ -23880,7 +23745,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_5_sva_2
       | nand_156_cse);
   assign mux_1543_nl = MUX_s_1_2_2((nor_1246_nl), (nor_1245_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_6_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_7_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_6_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_7_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[183]))}) + 5'b1101;
   assign nor_1243_nl = ~(cvt_6_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_2_itm_8_1
       | cvt_6_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_2_itm_7_1 | (~ cvt_6_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_2_itm_8_1)
@@ -23903,7 +23768,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_6_sva_2
       | nand_153_cse);
   assign mux_1545_nl = MUX_s_1_2_2((nor_1242_nl), (nor_1241_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_7_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_8_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_7_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_8_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[215]))}) + 5'b1101;
   assign nor_1239_nl = ~(cvt_7_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_2_itm_8_1
       | cvt_7_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_2_itm_7_1 | (~ cvt_7_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_2_itm_8_1)
@@ -23926,7 +23791,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_7_sva_2
       | nand_151_cse);
   assign mux_1547_nl = MUX_s_1_2_2((nor_1238_nl), (nor_1237_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_8_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_9_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_8_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_9_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[247]))}) + 5'b1101;
   assign nor_1235_nl = ~(cvt_8_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_3_itm_8_1
       | cvt_8_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_3_itm_7_1 | (~ cvt_8_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_3_itm_8_1)
@@ -23949,7 +23814,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_8_sva_2
       | nand_149_cse);
   assign mux_1549_nl = MUX_s_1_2_2((nor_1234_nl), (nor_1233_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_9_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_10_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_9_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_10_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[279]))}) + 5'b1101;
   assign nor_1231_nl = ~(cvt_9_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_1_itm_8_1
       | cvt_9_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_1_itm_7_1 | (~ cvt_9_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_1_itm_8_1)
@@ -23972,7 +23837,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_9_sva_2
       | nand_147_cse);
   assign mux_1551_nl = MUX_s_1_2_2((nor_1230_nl), (nor_1229_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_10_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_11_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_10_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_11_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[311]))}) + 5'b1101;
   assign nor_1227_nl = ~(cvt_10_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_2_itm_8_1
       | cvt_10_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_2_itm_7_1 | (~ cvt_10_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_2_itm_8_1)
@@ -23995,7 +23860,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_10_sva_2
       | nand_145_cse);
   assign mux_1553_nl = MUX_s_1_2_2((nor_1226_nl), (nor_1225_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_11_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_12_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_11_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_12_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[343]))}) + 5'b1101;
   assign nor_1223_nl = ~(cvt_11_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_2_itm_8_1
       | cvt_11_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_2_itm_7_1 | (~ cvt_11_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_2_itm_8_1)
@@ -24018,7 +23883,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_11_sva_2
       | nand_143_cse);
   assign mux_1555_nl = MUX_s_1_2_2((nor_1222_nl), (nor_1221_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_12_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_13_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_12_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_13_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[375]))}) + 5'b1101;
   assign nor_1219_nl = ~(cvt_12_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_3_itm_8_1
       | cvt_12_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_3_itm_7_1 | (~ cvt_12_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_3_itm_8_1)
@@ -24041,7 +23906,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_12_sva_2
       | nand_141_cse);
   assign mux_1557_nl = MUX_s_1_2_2((nor_1218_nl), (nor_1217_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_13_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_14_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_13_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_14_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[407]))}) + 5'b1101;
   assign nor_1215_nl = ~(cvt_13_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_2_itm_8_1
       | cvt_13_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_2_itm_7_1 | (~ cvt_13_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_2_itm_8_1)
@@ -24064,7 +23929,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_13_sva_2
       | nand_139_cse);
   assign mux_1559_nl = MUX_s_1_2_2((nor_1214_nl), (nor_1213_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_14_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_15_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_14_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_15_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[439]))}) + 5'b1101;
   assign nor_1211_nl = ~(cvt_14_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_3_itm_8_1
       | cvt_14_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_3_itm_7_1 | (~ cvt_14_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_3_itm_8_1)
@@ -24087,7 +23952,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_14_sva_2
       | nand_137_cse);
   assign mux_1561_nl = MUX_s_1_2_2((nor_1210_nl), (nor_1209_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_15_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_16_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_15_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_16_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[471]))}) + 5'b1101;
   assign nor_1207_nl = ~(cvt_15_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_3_itm_8_1
       | cvt_15_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_3_itm_7_1 | (~ cvt_15_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_3_itm_8_1)
@@ -24110,7 +23975,7 @@ module NV_NVDLA_SDP_CORE_c_core (
       | FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_slc_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_7_mdf_15_sva_2
       | nand_135_cse);
   assign mux_1563_nl = MUX_s_1_2_2((nor_1206_nl), (nor_1205_nl), or_5189_cse);
-  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_sva_2  = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_1_sva_mx0w0
+  assign nl_FpMantDecShiftRight_23U_8U_10U_guard_mask_acc_1_psp_sva_2 = conv_u2u_4_5({FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_if_i_shift_acc_psp_1_sva_mx0w0
       , (~ (chn_in_rsci_d_mxwt[503]))}) + 5'b1101;
   assign nor_1203_nl = ~(cvt_16_FpWidthDec_8U_23U_5U_10U_1U_1U_else_else_acc_4_itm_8_1
       | cvt_16_FpWidthDec_8U_23U_5U_10U_1U_1U_else_if_acc_4_itm_7_1 | (~ cvt_16_FpWidthDec_8U_23U_5U_10U_1U_1U_acc_4_itm_8_1)
@@ -24368,7 +24233,6 @@ module NV_NVDLA_SDP_CORE_c_core (
   assign mux_150_nl = MUX_s_1_2_2((or_270_nl), or_tmp_213, or_5189_cse);
   assign or_275_nl = (cfg_out_precision_1_sva_st_154!=2'b10) | (~ mux_tmp_151);
   assign mux_153_nl = MUX_s_1_2_2((or_275_nl), or_tmp_213, or_5189_cse);
-
   function [0:0] MUX1HOT_s_1_1_2;
     input [0:0] input_0;
     input [0:0] sel;
@@ -24378,8 +24242,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_s_1_1_2 = result;
   end
   endfunction
-
-
   function [0:0] MUX1HOT_s_1_3_2;
     input [0:0] input_2;
     input [0:0] input_1;
@@ -24393,8 +24255,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_s_1_3_2 = result;
   end
   endfunction
-
-
   function [0:0] MUX1HOT_s_1_5_2;
     input [0:0] input_4;
     input [0:0] input_3;
@@ -24412,8 +24272,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_s_1_5_2 = result;
   end
   endfunction
-
-
   function [14:0] MUX1HOT_v_15_3_2;
     input [14:0] input_2;
     input [14:0] input_1;
@@ -24427,8 +24285,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_v_15_3_2 = result;
   end
   endfunction
-
-
   function [14:0] MUX1HOT_v_15_6_2;
     input [14:0] input_5;
     input [14:0] input_4;
@@ -24448,8 +24304,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_v_15_6_2 = result;
   end
   endfunction
-
-
   function [14:0] MUX1HOT_v_15_7_2;
     input [14:0] input_6;
     input [14:0] input_5;
@@ -24471,8 +24325,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_v_15_7_2 = result;
   end
   endfunction
-
-
   function [15:0] MUX1HOT_v_16_3_2;
     input [15:0] input_2;
     input [15:0] input_1;
@@ -24486,8 +24338,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_v_16_3_2 = result;
   end
   endfunction
-
-
   function [3:0] MUX1HOT_v_4_4_2;
     input [3:0] input_3;
     input [3:0] input_2;
@@ -24503,8 +24353,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_v_4_4_2 = result;
   end
   endfunction
-
-
   function [3:0] MUX1HOT_v_4_6_2;
     input [3:0] input_5;
     input [3:0] input_4;
@@ -24524,8 +24372,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_v_4_6_2 = result;
   end
   endfunction
-
-
   function [4:0] MUX1HOT_v_5_3_2;
     input [4:0] input_2;
     input [4:0] input_1;
@@ -24539,8 +24385,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_v_5_3_2 = result;
   end
   endfunction
-
-
   function [6:0] MUX1HOT_v_7_3_2;
     input [6:0] input_2;
     input [6:0] input_1;
@@ -24554,8 +24398,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_v_7_3_2 = result;
   end
   endfunction
-
-
   function [8:0] MUX1HOT_v_9_4_2;
     input [8:0] input_3;
     input [8:0] input_2;
@@ -24571,8 +24413,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_v_9_4_2 = result;
   end
   endfunction
-
-
   function [8:0] MUX1HOT_v_9_5_2;
     input [8:0] input_4;
     input [8:0] input_3;
@@ -24590,8 +24430,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX1HOT_v_9_5_2 = result;
   end
   endfunction
-
-
   function [0:0] MUX_s_1_2_2;
     input [0:0] input_0;
     input [0:0] input_1;
@@ -24609,8 +24447,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX_s_1_2_2 = result;
   end
   endfunction
-
-
   function [9:0] MUX_v_10_2_2;
     input [9:0] input_0;
     input [9:0] input_1;
@@ -24628,8 +24464,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX_v_10_2_2 = result;
   end
   endfunction
-
-
   function [14:0] MUX_v_15_2_2;
     input [14:0] input_0;
     input [14:0] input_1;
@@ -24647,8 +24481,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX_v_15_2_2 = result;
   end
   endfunction
-
-
   function [15:0] MUX_v_16_2_2;
     input [15:0] input_0;
     input [15:0] input_1;
@@ -24666,8 +24498,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX_v_16_2_2 = result;
   end
   endfunction
-
-
   function [23:0] MUX_v_24_2_2;
     input [23:0] input_0;
     input [23:0] input_1;
@@ -24685,8 +24515,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX_v_24_2_2 = result;
   end
   endfunction
-
-
   function [48:0] MUX_v_49_2_2;
     input [48:0] input_0;
     input [48:0] input_1;
@@ -24704,8 +24532,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX_v_49_2_2 = result;
   end
   endfunction
-
-
   function [3:0] MUX_v_4_2_2;
     input [3:0] input_0;
     input [3:0] input_1;
@@ -24723,8 +24549,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     MUX_v_4_2_2 = result;
   end
   endfunction
-
-
   function [0:0] readslicef_11_1_10;
     input [10:0] vector;
     reg [10:0] tmp;
@@ -24733,8 +24557,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     readslicef_11_1_10 = tmp[0:0];
   end
   endfunction
-
-
   function [0:0] readslicef_12_1_11;
     input [11:0] vector;
     reg [11:0] tmp;
@@ -24743,8 +24565,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     readslicef_12_1_11 = tmp[0:0];
   end
   endfunction
-
-
   function [0:0] readslicef_3_1_2;
     input [2:0] vector;
     reg [2:0] tmp;
@@ -24753,8 +24573,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     readslicef_3_1_2 = tmp[0:0];
   end
   endfunction
-
-
   function [0:0] readslicef_5_1_4;
     input [4:0] vector;
     reg [4:0] tmp;
@@ -24763,8 +24581,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     readslicef_5_1_4 = tmp[0:0];
   end
   endfunction
-
-
   function [0:0] readslicef_8_1_7;
     input [7:0] vector;
     reg [7:0] tmp;
@@ -24773,8 +24589,6 @@ module NV_NVDLA_SDP_CORE_c_core (
     readslicef_8_1_7 = tmp[0:0];
   end
   endfunction
-
-
   function [0:0] readslicef_9_1_8;
     input [8:0] vector;
     reg [8:0] tmp;
@@ -24783,158 +24597,118 @@ module NV_NVDLA_SDP_CORE_c_core (
     readslicef_9_1_8 = tmp[0:0];
   end
   endfunction
-
-
   function [3:0] signext_4_1;
     input [0:0] vector;
   begin
     signext_4_1= {{3{vector[0]}}, vector};
   end
   endfunction
-
-
-  function  [17:0] conv_s2s_17_18 ;
-    input [16:0]  vector ;
+  function [17:0] conv_s2s_17_18 ;
+    input [16:0] vector ;
   begin
     conv_s2s_17_18 = {vector[16], vector};
   end
   endfunction
-
-
-  function  [48:0] conv_s2s_17_49 ;
-    input [16:0]  vector ;
+  function [48:0] conv_s2s_17_49 ;
+    input [16:0] vector ;
   begin
     conv_s2s_17_49 = {{32{vector[16]}}, vector};
   end
   endfunction
-
-
-  function  [48:0] conv_s2s_18_49 ;
-    input [17:0]  vector ;
+  function [48:0] conv_s2s_18_49 ;
+    input [17:0] vector ;
   begin
     conv_s2s_18_49 = {{31{vector[17]}}, vector};
   end
   endfunction
-
-
-  function  [32:0] conv_s2s_32_33 ;
-    input [31:0]  vector ;
+  function [32:0] conv_s2s_32_33 ;
+    input [31:0] vector ;
   begin
     conv_s2s_32_33 = {vector[31], vector};
   end
   endfunction
-
-
-  function  [44:0] conv_s2s_44_45 ;
-    input [43:0]  vector ;
+  function [44:0] conv_s2s_44_45 ;
+    input [43:0] vector ;
   begin
     conv_s2s_44_45 = {vector[43], vector};
   end
   endfunction
-
-
-  function  [49:0] conv_s2s_49_50 ;
-    input [48:0]  vector ;
+  function [49:0] conv_s2s_49_50 ;
+    input [48:0] vector ;
   begin
     conv_s2s_49_50 = {vector[48], vector};
   end
   endfunction
-
-
-  function  [2:0] conv_s2u_2_3 ;
-    input [1:0]  vector ;
+  function [2:0] conv_s2u_2_3 ;
+    input [1:0] vector ;
   begin
     conv_s2u_2_3 = {vector[1], vector};
   end
   endfunction
-
-
-  function  [10:0] conv_s2u_10_11 ;
-    input [9:0]  vector ;
+  function [10:0] conv_s2u_10_11 ;
+    input [9:0] vector ;
   begin
     conv_s2u_10_11 = {vector[9], vector};
   end
   endfunction
-
-
-  function  [48:0] conv_s2u_49_49 ;
-    input [48:0]  vector ;
+  function [48:0] conv_s2u_49_49 ;
+    input [48:0] vector ;
   begin
     conv_s2u_49_49 = vector;
   end
   endfunction
-
-
-  function  [44:0] conv_u2s_1_45 ;
-    input [0:0]  vector ;
+  function [44:0] conv_u2s_1_45 ;
+    input [0:0] vector ;
   begin
     conv_u2s_1_45 = {{44{1'b0}}, vector};
   end
   endfunction
-
-
-  function  [49:0] conv_u2s_1_50 ;
-    input [0:0]  vector ;
+  function [49:0] conv_u2s_1_50 ;
+    input [0:0] vector ;
   begin
     conv_u2s_1_50 = {{49{1'b0}}, vector};
   end
   endfunction
-
-
-  function  [8:0] conv_u2s_8_9 ;
-    input [7:0]  vector ;
+  function [8:0] conv_u2s_8_9 ;
+    input [7:0] vector ;
   begin
-    conv_u2s_8_9 =  {1'b0, vector};
+    conv_u2s_8_9 = {1'b0, vector};
   end
   endfunction
-
-
-  function  [9:0] conv_u2u_1_10 ;
-    input [0:0]  vector ;
+  function [9:0] conv_u2u_1_10 ;
+    input [0:0] vector ;
   begin
     conv_u2u_1_10 = {{9{1'b0}}, vector};
   end
   endfunction
-
-
-  function  [10:0] conv_u2u_1_11 ;
-    input [0:0]  vector ;
+  function [10:0] conv_u2u_1_11 ;
+    input [0:0] vector ;
   begin
     conv_u2u_1_11 = {{10{1'b0}}, vector};
   end
   endfunction
-
-
-  function  [4:0] conv_u2u_4_5 ;
-    input [3:0]  vector ;
+  function [4:0] conv_u2u_4_5 ;
+    input [3:0] vector ;
   begin
     conv_u2u_4_5 = {1'b0, vector};
   end
   endfunction
-
-
-  function  [7:0] conv_u2u_7_8 ;
-    input [6:0]  vector ;
+  function [7:0] conv_u2u_7_8 ;
+    input [6:0] vector ;
   begin
     conv_u2u_7_8 = {1'b0, vector};
   end
   endfunction
-
-
-  function  [16:0] conv_u2u_16_17 ;
-    input [15:0]  vector ;
+  function [16:0] conv_u2u_16_17 ;
+    input [15:0] vector ;
   begin
     conv_u2u_16_17 = {1'b0, vector};
   end
   endfunction
-
 endmodule
-
 // ------------------------------------------------------------------
-//  Design Unit:    NV_NVDLA_SDP_CORE_c
+// Design Unit: NV_NVDLA_SDP_CORE_c
 // ------------------------------------------------------------------
-
-
 module NV_NVDLA_SDP_CORE_c (
   nvdla_core_clk, nvdla_core_rstn, chn_in_rsc_z, chn_in_rsc_vz, chn_in_rsc_lz, cfg_offset_rsc_z,
       cfg_scale_rsc_z, cfg_truncate_rsc_z, cfg_proc_precision_rsc_z, cfg_out_precision_rsc_z,
@@ -24954,16 +24728,12 @@ module NV_NVDLA_SDP_CORE_c (
   output [271:0] chn_out_rsc_z;
   input chn_out_rsc_vz;
   output chn_out_rsc_lz;
-
-
-  // Interconnect Declarations
+// Interconnect Declarations
   wire chn_in_rsci_oswt;
   wire chn_in_rsci_oswt_unreg;
   wire chn_out_rsci_oswt;
   wire chn_out_rsci_oswt_unreg;
-
-
-  // Interconnect Declarations for Component Instantiations 
+// Interconnect Declarations for Component Instantiations
   SDP_C_chn_in_rsci_unreg chn_in_rsci_unreg_inst (
       .in_0(chn_in_rsci_oswt_unreg),
       .outsig(chn_in_rsci_oswt)
@@ -24993,6 +24763,3 @@ module NV_NVDLA_SDP_CORE_c (
       .chn_out_rsci_oswt_unreg(chn_out_rsci_oswt_unreg)
     );
 endmodule
-
-
-
