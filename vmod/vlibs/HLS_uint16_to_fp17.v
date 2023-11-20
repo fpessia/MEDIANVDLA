@@ -101,9 +101,9 @@ module UINT16_TO_FP17_mgc_shift_l_v4(a,s,z);
       input [width_a  :0] arg1;
       input [width_s-1:0] arg2;
       input sbit;
-      int olen = width_z;
-      int ilen = width_a+1;
-      int len = (ilen >= olen) ? ilen : olen;
+      parameter olen = width_z;
+      parameter ilen = width_a+1;
+      parameter len = (ilen >= olen) ? ilen : olen;
       reg [len-1:0] result;
       reg [len-1:0] result_t;
       begin

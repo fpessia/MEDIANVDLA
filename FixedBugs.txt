@@ -1,0 +1,59 @@
+1) gcc is not a good compiler for this project, use cpp compiler in tree.make
+2)Address time scale mismatch between NVDLA chip and RAMs (e.g. in /vmod/nvdla/top/NV_nvdla.v add `timescale 10ps/1ps)
+3) the function for shifter uses parameter in verilog functions, latest version of verilator supports this directive
+   Nevertheless best use localparam
+
+4) In /verif/verilator/Makefile add routine resume: copy and paste line 28-32
+   Fix make file : /outdir/nv_full/verilator/VNV_nvdla.mk 
+   line 60 : change all flags after $(CXX) and replace them with : 
+   -std=c++11 -I. -I/usr/include/c++/10 -I/usr/include/x86_64-linux-gnu/c++/10 -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd 
+   -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-overloaded-virtual -Wno-shadow 
+   -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Os -c -o nvdla.o nvdla.cpp
+
+5) Installing latest version of clang
+    
+    git clone https://github.com/llvm/llvm-project.git
+    cd llvm-project
+    mkdir build
+    cd build
+    cmake -G Ninja -DLLVM_ENABLE_PROJECTS=clang -DCMAKE_BUILD_TYPE=Release ../llvm
+    ninja
+    sudo ninja install
+    clang --version
+6) Solved bug in point 5 by changing compiler in line 28 of Makefile in /verif/verilator/Makefile
+   I used CPP and GCC instead of clang for building c++ code synthetized by verilator
+   
+
+SURFACE PACKED PIXELS
+
+Memory Location   Pixel Coordinate (c, y, x)   ASCII Representation
+---------------------------------------------------------------------
+   0                      (0, 0, 0)                    Pixel Value
+   1                      (0, 0, 1)                    Pixel Value
+   2                      (0, 0, 2)                    Pixel Value
+   3                      (0, 1, 0)                    Pixel Value
+   4                      (0, 1, 1)                    Pixel Value
+   5                      (0, 1, 2)                    Pixel Value
+   6                      (0, 2, 0)                    Pixel Value
+   7                      (0, 2, 1)                    Pixel Value
+   8                      (0, 2, 2)                    Pixel Value
+   9                      (1, 0, 0)                    Pixel Value
+  10                      (1, 0, 1)                    Pixel Value
+  11                      (1, 0, 2)                    Pixel Value
+  12                      (1, 1, 0)                    Pixel Value
+  13                      (1, 1, 1)                    Pixel Value
+  14                      (1, 1, 2)                    Pixel Value
+  15                      (1, 2, 0)                    Pixel Value
+  16                      (1, 2, 1)                    Pixel Value
+  17                      (1, 2, 2)                    Pixel Value
+  18                      (2, 0, 0)                    Pixel Value
+
+The .dat Memory file are vertically organized!! therefore contiguos memory cells are organized as follows:
+line 0, col 0
+line 1, col 0,
+...
+line n, col 0,
+line 0, col 1
+
+**TODO
+verify sanity3 again !!! --> thre migh be overflow ReLu adjusted --> -inf = 0, inf = 0x7FFF

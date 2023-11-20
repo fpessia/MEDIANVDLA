@@ -32,7 +32,8 @@ JAVA := /usr/bin/java
 SYSTEMC := /usr/local/systemc-2.3.0/
   																  
 ## verilator: used to build testbench without VCS (optional)
-VERILATOR := /usr/bin/verilator
+VERILATOR := /usr/local/bin/verilator
   																  
 ## clang: used to build Verilated binaries (optional)
-CLANG := /usr/bin/clang
+CLANG := /usr/local/bin/clang
+
