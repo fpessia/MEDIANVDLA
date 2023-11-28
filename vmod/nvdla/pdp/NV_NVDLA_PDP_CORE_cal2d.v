@@ -4647,6 +4647,210 @@ assign  mem_data_valid = load_wr_stage2 ? mem_re_2d : 8'h00;
 //assign pooling_2d_result_5  =  mem_re_1st_2d[5] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[5],mem_data5[111:0],pooling_datin);
 //assign pooling_2d_result_6  =  mem_re_1st_2d[6] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[6],mem_data6[111:0],pooling_datin);
 //assign pooling_2d_result_7  =  mem_re_1st_2d[7] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[7],mem_data7[111:0],pooling_datin);
+/*
+//back engeneerign data flow
+wire previous_rs0_w[111:0],previous_rs1_w[111:0],previous_rs2_w[111:0],previous_rs3_w[111:0],previous_rs4_w[111:0],previous_rs5_w[111:0],previous_rs6_w[111:0],previous_rs7_w[111:0];
+reg previous_rs0[111:0],previous_rs1[111:0],previous_rs2[111:0],previous_rs3[111:0],previous_rs4[111:0],previous_rs5[111:0],previous_rs6[111:0],previous_rs7[111:0];
+assign previous_rs0_w = previous_rs0;
+assign previous_rs1_w = previous_rs1;
+assign previous_rs2_w = previous_rs2;
+assign previous_rs3_w = previous_rs3;
+assign previous_rs4_w = previous_rs4;
+assign previous_rs5_w = previous_rs5;
+assign previous_rs6_w = previous_rs6;
+assign previous_rs7_w = previous_rs7;
+
+
+
+always @(posedge nvdla_core_clk or negedge nvdla_core_rstn) begin
+  //if (!nvdla_core_rstn) begin
+  //  previous_rs0 <= 0;
+  //  previous_rs1 <= 0;
+  //  previous_rs2 <= 0;
+  //  previous_rs3 <= 0;
+  //  previous_rs4 <= 0;
+  //  previous_rs5 <= 0;
+  //  previous_rs6 <= 0;
+  //  previous_rs7 <= 0;  
+  //  end else begin
+    integer log_file;
+    log_file = $fopen("log_file.txt", "a");
+    if (previous_rs0_w != pooling_2d_result_0) begin
+      $display(log_file,"A0[27 : 0] : %h , B0[27 : 0] : %h , res : %h", pooling_datin[27 : 0],mem_data0[27 : 0], pooling_2d_result_0[27 : 0]);
+      $display(log_file,"A0[55 : 28] : %h , B0[55 : 28] : %h,  res : %h", pooling_datin[55 : 28],mem_data0[55 : 28],pooling_2d_result_0[55 : 28]);
+      $display(log_file,"A0[83 : 56] : %h , B0[83 : 56] : %h,  res : %h", pooling_datin[83 : 56],mem_data0[83 : 56],pooling_2d_result_0[83 : 56]);
+      $display(log_file,"A0[111 : 84] : %h , B0[111 : 84] : %h ,  res : %h", pooling_datin[111 : 84],mem_data0[111 : 84], pooling_2d_result_0[111 : 84]);
+      $display("\n");
+      previous_rs0 <= pooling_2d_result_0;
+    end 
+
+    if (previous_rs1_w != pooling_2d_result_1) begin
+      $display(log_file,"A1[27 : 0] : %h , B1[27 : 0] : %h , res : %h", pooling_datin[27 : 0],mem_data1[27 : 0], pooling_2d_result_1[27 : 0]);
+      $display(log_file,"A1[55 : 28] : %h , B1[55 : 28] : %h,  res : %h", pooling_datin[55 : 28],mem_data1[55 : 28],pooling_2d_result_1[55 : 28]);
+      $display(log_file,"A1[83 : 56] : %h , B1[83 : 56] : %h,  res : %h", pooling_datin[83 : 56],mem_data1[83 : 56],pooling_2d_result_1[83 : 56]);
+      $display(log_file,"A1[111 : 84] : %h , B1[111 : 84] : %h ,  res : %h", pooling_datin[111 : 84],mem_data1[111 : 84], pooling_2d_result_1[111 : 84]);
+      $display("\n");
+      previous_rs1 <= pooling_2d_result_1;
+    end 
+
+    if (previous_rs2_w != pooling_2d_result_2) begin
+      $display(log_file,"A2[27 : 0] : %h , B2[27 : 0] : %h , res : %h", pooling_datin[27 : 0],mem_data2[27 : 0], pooling_2d_result_2[27 : 0]);
+      $display(log_file,"A2[55 : 28] : %h , B2[55 : 28] : %h,  res : %h", pooling_datin[55 : 28],mem_data2[55 : 28],pooling_2d_result_2[55 : 28]);
+      $display(log_file,"A2[83 : 56] : %h , B2[83 : 56] : %h,  res : %h", pooling_datin[83 : 56],mem_data2[83 : 56],pooling_2d_result_2[83 : 56]);
+      $display(log_file,"A2[111 : 84] : %h , B2[111 : 84] : %h ,  res : %h", pooling_datin[111 : 84],mem_data2[111 : 84], pooling_2d_result_2[111 : 84]);
+      $display("\n");
+      previous_rs2 <= pooling_2d_result_2;
+    end 
+
+    if (previous_rs3_w != pooling_2d_result_3) begin
+      $display(log_file,"A3[27 : 0] : %h , B3[27 : 0] : %h , res : %h", pooling_datin[27 : 0],mem_data3[27 : 0], pooling_2d_result_3[27 : 0]);
+      $display(log_file,"A3[55 : 28] : %h , B3[55 : 28] : %h,  res : %h", pooling_datin[55 : 28],mem_data3[55 : 28],pooling_2d_result_3[55 : 28]);
+      $display(log_file,"A3[83 : 56] : %h , B3[83 : 56] : %h,  res : %h", pooling_datin[83 : 56],mem_data3[83 : 56],pooling_2d_result_3[83 : 56]);
+      $display(log_file,"A3[111 : 84] : %h , B3[111 : 84] : %h ,  res : %h", pooling_datin[111 : 84],mem_data3[111 : 84], pooling_2d_result_3[111 : 84]);
+      $display("\n");
+      previous_rs3 <= pooling_2d_result_3;
+    end 
+
+    if (previous_rs4_w != pooling_2d_result_4) begin
+      $display(log_file,"A4[27 : 0] : %h , B4[27 : 0] : %h , res : %h", pooling_datin[27 : 0],mem_data4[27 : 0], pooling_2d_result_4[27 : 0]);
+      $display(log_file,"A4[55 : 28] : %h , B4[55 : 28] : %h,  res : %h", pooling_datin[55 : 28],mem_data4[55 : 28],pooling_2d_result_4[55 : 28]);
+      $display(log_file,"A4[83 : 56] : %h , B4[83 : 56] : %h,  res : %h", pooling_datin[83 : 56],mem_data4[83 : 56],pooling_2d_result_4[83 : 56]);
+      $display(log_file,"A4[111 : 84] : %h , B4[111 : 84] : %h ,  res : %h", pooling_datin[111 : 84],mem_data4[111 : 84], pooling_2d_result_4[111 : 84]);
+      $display("\n");
+      previous_rs4 <= pooling_2d_result_4;
+    end 
+
+    if (previous_rs5_w != pooling_2d_result_5) begin
+      $display(log_file,"A5[27 : 0] : %h , B5[27 : 0] : %h , res : %h", pooling_datin[27 : 0],mem_data5[27 : 0], pooling_2d_result_5[27 : 0]);
+      $display(log_file,"A5[55 : 28] : %h , B5[55 : 28] : %h,  res : %h", pooling_datin[55 : 28],mem_data5[55 : 28],pooling_2d_result_5[55 : 28]);
+      $display(log_file,"A5[83 : 56] : %h , B5[83 : 56] : %h,  res : %h", pooling_datin[83 : 56],mem_data5[83 : 56],pooling_2d_result_5[83 : 56]);
+      $display(log_file,"A5[111 : 84] : %h , B5[111 : 84] : %h ,  res : %h", pooling_datin[111 : 84],mem_data5[111 : 84], pooling_2d_result_5[111 : 84]);
+      $display("\n");
+      previous_rs5 <= pooling_2d_result_5;
+    end 
+
+
+    if (previous_rs6_w != pooling_2d_result_6) begin
+      $display(log_file,"A6[27 : 0] : %h , B6[27 : 0] : %h , res : %h", pooling_datin[27 : 0],mem_data6[27 : 0], pooling_2d_result_6[27 : 0]);
+      $display(log_file,"A6[55 : 28] : %h , B6[55 : 28] : %h,  res : %h", pooling_datin[55 : 28],mem_data6[55 : 28],pooling_2d_result_6[55 : 28]);
+      $display(log_file,"A6[83 : 56] : %h , B6[83 : 56] : %h,  res : %h", pooling_datin[83 : 56],mem_data6[83 : 56],pooling_2d_result_6[83 : 56]);
+      $display(log_file,"A6[111 : 84] : %h , B6[111 : 84] : %h ,  res : %h", pooling_datin[111 : 84],mem_data6[111 : 84], pooling_2d_result_6[111 : 84]);
+      $display("\n");
+      previous_rs6 <= pooling_2d_result_6;
+    end 
+
+
+    if (previous_rs7_w != pooling_2d_result_7) begin
+      $display(log_file,"A7[27 : 0] : %h , B7[27 : 0] : %h , res : %h", pooling_datin[27 : 0],mem_data7[27 : 0], pooling_2d_result_7[27 : 0]);
+      $display(log_file,"A7[55 : 28] : %h , B7[55 : 28] : %h,  res : %h", pooling_datin[55 : 28],mem_data7[55 : 28],pooling_2d_result_7[55 : 28]);
+      $display(log_file,"A7[83 : 56] : %h , B7[83 : 56] : %h,  res : %h", pooling_datin[83 : 56],mem_data7[83 : 56],pooling_2d_result_7[83 : 56]);
+      $display(log_file,"A7[111 : 84] : %h , B7[111 : 84] : %h ,  res : %h", pooling_datin[111 : 84],mem_data7[111 : 84], pooling_2d_result_7[111 : 84]);
+      $display("\n");
+      previous_rs7 <= pooling_2d_result_7;
+    end
+    $fclose(log_file);
+  //end
+end 
+*/
+reg[31 : 0] ck_cnt;
+
+always@(posedge nvdla_core_clk  or negedge nvdla_core_rstn) begin
+if (!nvdla_core_rstn) begin
+ ck_cnt <= {32{1'b0}};
+end else begin
+  ck_cnt <= ck_cnt + 1;
+end
+end
+
+always @(pooling_2d_result_0, mem_data0, pooling_datin) begin
+integer log_file;
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file0.txt", "a");
+$fwrite(log_file,"A0[27 : 0] : %h , B0[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data0[27 : 0]);
+$fwrite(log_file,"A0[55 : 28] : %h , B0[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data0[55 : 28]);
+$fwrite(log_file,"A0[83 : 56] : %h , B0[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data0[83 : 56]);
+$fwrite(log_file,"A0[111 : 84] : %h , B0[111 : 84] : %h \t", pooling_datin[111 : 84],mem_data0[111 : 84]);
+$fwrite(log_file,"sel : %b , ck : %h \t", mem_re_1st_2d[0], ck_cnt);
+$fwrite(log_file,"\n");
+$fclose(log_file);
+end
+
+
+always @(pooling_2d_result_1) begin
+integer log_file;
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file1.txt", "a");
+$fwrite(log_file,"A1[27 : 0] : %h , B1[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data1[27 : 0]);
+$fwrite(log_file,"A1[55 : 28] : %h , B1[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data1[55 : 28]);
+$fwrite(log_file,"A1[83 : 56] : %h , B1[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data1[83 : 56]);
+$fwrite(log_file,"A1[111 : 84] : %h , B1[111 : 84] : %h \t", pooling_datin[111 : 84],mem_data1[111 : 84]);
+$fwrite(log_file,"sel : %b , ck : %h \t", mem_re_1st_2d[1], ck_cnt);
+$fwrite(log_file,"\n");
+$fwrite(log_file);
+end
+
+always @(pooling_2d_result_2) begin
+integer log_file;
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file2.txt", "a");
+$fwrite(log_file,"A2[27 : 0] : %h , B2[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data2[27 : 0]);
+$fwrite(log_file,"A2[55 : 28] : %h , B2[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data2[55 : 28]);
+$fwrite(log_file,"A2[83 : 56] : %h , B2[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data2[83 : 56]);
+$fwrite(log_file,"A2[111 : 84] : %h , B2[111 : 84] : %h \t", pooling_datin[111 : 84],mem_data2[111 : 84]);
+$fwrite(log_file,"sel : %b , ck : %h \n", mem_re_1st_2d[2], ck_cnt);
+$fclose(log_file);
+end
+
+always @(pooling_2d_result_3) begin
+integer log_file;
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file3.txt", "a");
+$fwrite(log_file,"A3[27 : 0] : %h , B3[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data3[27 : 0]);
+$fwrite(log_file,"A3[55 : 28] : %h , B3[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data3[55 : 28]);
+$fwrite(log_file,"A3[83 : 56] : %h , B3[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data3[83 : 56]);
+$fwrite(log_file,"A3[111 : 84] : %h , B3[111 : 84] : %h \t", pooling_datin[111 : 84],mem_data3[111 : 84]);
+$fwrite(log_file,"sel : %b , ck : %h \n", mem_re_1st_2d[3], ck_cnt);
+$fwrite(log_file);
+end
+
+always @(pooling_2d_result_4, mem_data4, pooling_datin) begin
+integer log_file;
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file4.txt", "a");
+$fwrite(log_file,"A4[27 : 0] : %h , B4[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data4[27 : 0]);
+$fwrite(log_file,"A4[55 : 28] : %h , B4[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data4[55 : 28]);
+$fwrite(log_file,"A4[83 : 56] : %h , B4[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data4[83 : 56]);
+$fwrite(log_file,"A4[111 : 84] : %h , B4[111 : 84] : %h \t", pooling_datin[111 : 84],mem_data4[111 : 84]);
+$fwrite(log_file,"sel : %b , ck : %h \n", mem_re_1st_2d[4], ck_cnt);
+$fclose(log_file);
+end
+always @(pooling_2d_result_5) begin
+integer log_file;
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file5.txt", "a");
+$fwrite(log_file,"A5[27 : 0] : %h , B5[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data5[27 : 0]);
+$fwrite(log_file,"A5[55 : 28] : %h , B5[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data5[55 : 28]);
+$fwrite(log_file,"A5[83 : 56] : %h , B5[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data5[83 : 56]);
+$fwrite(log_file,"A5[111 : 84] : %h , B5[111 : 84] : %h \t", pooling_datin[111 : 84],mem_data5[111 : 84]);
+$fwrite(log_file,"sel : %b , ck : %h \n", mem_re_1st_2d[5], ck_cnt);
+$fclose(log_file);
+end
+always @(pooling_2d_result_6) begin
+integer log_file;
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file6.txt", "a");
+$fwrite(log_file,"A6[27 : 0] : %h , B6[27 : 0] : %h", pooling_datin[27 : 0],mem_data6[27 : 0]);
+$fwrite(log_file,"A6[55 : 28] : %h , B6[55 : 28] : %h", pooling_datin[55 : 28],mem_data6[55 : 28]);
+$fwrite(log_file,"A6[83 : 56] : %h , B6[83 : 56] : %h", pooling_datin[83 : 56],mem_data6[83 : 56]);
+$fwrite(log_file,"A6[111 : 84] : %h , B6[111 : 84] : %h", pooling_datin[111 : 84],mem_data6[111 : 84]);
+$fwrite(log_file,"sel : %b , ck : %h \n", mem_re_1st_2d[6], ck_cnt);
+$fclose(log_file);
+end
+always @(pooling_2d_result_7) begin
+integer log_file;
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file7.txt", "a");
+$fwrite(log_file,"A7[27 : 0] : %h , B7[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data7[27 : 0]);
+$fwrite(log_file,"A7[55 : 28] : %h , B7[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data7[55 : 28]);
+$fwrite(log_file,"A7[83 : 56] : %h , B7[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data7[83 : 56]);
+$fwrite(log_file,"A7[111 : 84] : %h , B7[111 : 84] : %h \t", pooling_datin[111 : 84],mem_data7[111 : 84]);
+$fwrite(log_file,"sel : %b , ck : %h \n", mem_re_1st_2d[7], ck_cnt);
+$fclose(log_file);
+end
+
+
 assign pooling_2d_result_0  =  mem_re_1st_2d[0] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[0]/*,mem_data0[111:0]*/,pooling_datin,mem_data0[111:0]);
 assign pooling_2d_result_1  =  mem_re_1st_2d[1] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[1]/*,mem_data1[111:0]*/,pooling_datin,mem_data1[111:0]);
 assign pooling_2d_result_2  =  mem_re_1st_2d[2] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[2]/*,mem_data2[111:0]*/,pooling_datin,mem_data2[111:0]);

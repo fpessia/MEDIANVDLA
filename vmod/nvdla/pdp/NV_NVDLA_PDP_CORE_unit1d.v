@@ -590,6 +590,28 @@ assign int_pool_datin_ext = pool_fun_vld ? datain_ext : 88'd0;
 assign int_pool_cur_dat   = pool_fun_vld ? cur_pooling_dat[87:0] : 88'd0;
 assign int_pooling = pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],int_pool_cur_dat, int_pool_datin_ext);
 
+/*DEBUGGING*/
+always @(int_pooling) begin
+integer log_file;
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file8.txt", "a");
+$fwrite(log_file,"A[21 : 0] : %h , B[27 : 0] : %h \t", int_pool_cur_dat[21 : 0],int_pool_datin_ext[21 : 0]);
+$fwrite(log_file,"A[43 : 28] : %h , B[27 : 0] : %h \t", int_pool_cur_dat[43 : 22],int_pool_datin_ext[43 : 22]);
+$fwrite(log_file,"A[65 : 56] : %h , B[27 : 0] : %h \t", int_pool_cur_dat[65 : 44],int_pool_datin_ext[65 : 44]);
+$fwrite(log_file,"A[87 : 0] : %h , B[27 : 0] : %h \t", int_pool_cur_dat[87 : 66],int_pool_datin_ext[87 : 66]);
+$fwrite(log_file," ck : %h \n",  ck_cnt);
+$fwrite(log_file);
+end
+reg[31 : 0] ck_cnt;
+
+always@(posedge nvdla_core_clk  or negedge nvdla_core_rstn) begin
+if (!nvdla_core_rstn) begin
+ ck_cnt <= {32{1'b0}};
+end else begin
+  ck_cnt <= ck_cnt + 1;
+end
+end
+/*END DEBUGGING*/
+
 assign pooling_result = (pooling_din_1st_sync ? datain_ext_sync : int_pooling_sync);
 //--------------------------------------------------------------------
 //for NVDLA_HLS_ADD17_LATENCY==3
