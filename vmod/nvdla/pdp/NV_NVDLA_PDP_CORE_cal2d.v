@@ -4764,7 +4764,7 @@ end
 
 always @(pooling_2d_result_0, mem_data0, pooling_datin) begin
 integer log_file;
-log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file0.txt", "a");
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/pdp_max_pooling_int16/log_file0.txt", "a");
 $fwrite(log_file,"A0[27 : 0] : %h , B0[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data0[27 : 0]);
 $fwrite(log_file,"A0[55 : 28] : %h , B0[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data0[55 : 28]);
 $fwrite(log_file,"A0[83 : 56] : %h , B0[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data0[83 : 56]);
@@ -4777,7 +4777,7 @@ end
 
 always @(pooling_2d_result_1) begin
 integer log_file;
-log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file1.txt", "a");
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/pdp_max_pooling_int16/log_file1.txt", "a");
 $fwrite(log_file,"A1[27 : 0] : %h , B1[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data1[27 : 0]);
 $fwrite(log_file,"A1[55 : 28] : %h , B1[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data1[55 : 28]);
 $fwrite(log_file,"A1[83 : 56] : %h , B1[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data1[83 : 56]);
@@ -4789,7 +4789,7 @@ end
 
 always @(pooling_2d_result_2) begin
 integer log_file;
-log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file2.txt", "a");
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/pdp_max_pooling_int16/log_file2.txt", "a");
 $fwrite(log_file,"A2[27 : 0] : %h , B2[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data2[27 : 0]);
 $fwrite(log_file,"A2[55 : 28] : %h , B2[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data2[55 : 28]);
 $fwrite(log_file,"A2[83 : 56] : %h , B2[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data2[83 : 56]);
@@ -4800,7 +4800,7 @@ end
 
 always @(pooling_2d_result_3) begin
 integer log_file;
-log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file3.txt", "a");
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/pdp_max_pooling_int16/log_file3.txt", "a");
 $fwrite(log_file,"A3[27 : 0] : %h , B3[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data3[27 : 0]);
 $fwrite(log_file,"A3[55 : 28] : %h , B3[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data3[55 : 28]);
 $fwrite(log_file,"A3[83 : 56] : %h , B3[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data3[83 : 56]);
@@ -4811,7 +4811,7 @@ end
 
 always @(pooling_2d_result_4, mem_data4, pooling_datin) begin
 integer log_file;
-log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file4.txt", "a");
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/pdp_max_pooling_int16/log_file4.txt", "a");
 $fwrite(log_file,"A4[27 : 0] : %h , B4[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data4[27 : 0]);
 $fwrite(log_file,"A4[55 : 28] : %h , B4[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data4[55 : 28]);
 $fwrite(log_file,"A4[83 : 56] : %h , B4[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data4[83 : 56]);
@@ -4821,7 +4821,7 @@ $fclose(log_file);
 end
 always @(pooling_2d_result_5) begin
 integer log_file;
-log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file5.txt", "a");
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/pdp_max_pooling_int16/log_file5.txt", "a");
 $fwrite(log_file,"A5[27 : 0] : %h , B5[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data5[27 : 0]);
 $fwrite(log_file,"A5[55 : 28] : %h , B5[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data5[55 : 28]);
 $fwrite(log_file,"A5[83 : 56] : %h , B5[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data5[83 : 56]);
@@ -4831,7 +4831,7 @@ $fclose(log_file);
 end
 always @(pooling_2d_result_6) begin
 integer log_file;
-log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file6.txt", "a");
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/pdp_max_pooling_int16/log_file6.txt", "a");
 $fwrite(log_file,"A6[27 : 0] : %h , B6[27 : 0] : %h", pooling_datin[27 : 0],mem_data6[27 : 0]);
 $fwrite(log_file,"A6[55 : 28] : %h , B6[55 : 28] : %h", pooling_datin[55 : 28],mem_data6[55 : 28]);
 $fwrite(log_file,"A6[83 : 56] : %h , B6[83 : 56] : %h", pooling_datin[83 : 56],mem_data6[83 : 56]);
@@ -4841,7 +4841,7 @@ $fclose(log_file);
 end
 always @(pooling_2d_result_7) begin
 integer log_file;
-log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file7.txt", "a");
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/pdp_max_pooling_int16/log_file7.txt", "a");
 $fwrite(log_file,"A7[27 : 0] : %h , B7[27 : 0] : %h \t", pooling_datin[27 : 0],mem_data7[27 : 0]);
 $fwrite(log_file,"A7[55 : 28] : %h , B7[55 : 28] : %h \t", pooling_datin[55 : 28],mem_data7[55 : 28]);
 $fwrite(log_file,"A7[83 : 56] : %h , B7[83 : 56] : %h \t", pooling_datin[83 : 56],mem_data7[83 : 56]);

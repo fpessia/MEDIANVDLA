@@ -593,7 +593,7 @@ assign int_pooling = pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,p
 /*DEBUGGING*/
 always @(int_pooling) begin
 integer log_file;
-log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/log_file8.txt", "a");
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/pdp_max_pooling_int16/log_file8.txt", "a");
 $fwrite(log_file,"A[21 : 0] : %h , B[27 : 0] : %h \t", int_pool_cur_dat[21 : 0],int_pool_datin_ext[21 : 0]);
 $fwrite(log_file,"A[43 : 28] : %h , B[27 : 0] : %h \t", int_pool_cur_dat[43 : 22],int_pool_datin_ext[43 : 22]);
 $fwrite(log_file,"A[65 : 56] : %h , B[27 : 0] : %h \t", int_pool_cur_dat[65 : 44],int_pool_datin_ext[65 : 44]);
