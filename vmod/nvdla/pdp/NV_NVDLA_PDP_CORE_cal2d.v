@@ -746,6 +746,14 @@ wire           wr_line_dat_done;
 wire           wr_subcube_dat_done;
 wire           wr_surface_dat_done;
 wire           wr_total_cube_done;
+
+wire    [7:0]datas_valid;
+wire    [7:0]cores_enable;
+wire    [7:0][111:0] datas0; 
+wire    [7:0][111:0] datas1;
+wire    [7:0][111:0] med2d_out; 
+
+
 reg      [3:0] bank_merge_num;
 reg      [2:0] bubble_add;
 reg      [2:0] bubble_cnt;
@@ -3819,9 +3827,11 @@ function[111:0] pooling_fun;
   input       data0_valid;
   input[111:0] data0_in;
   input[111:0] data1_in;
+  input[111:0] med2d_out;
   reg    min_pooling;
   reg    max_pooling;
   reg    mean_pooling;
+  reg    median_pooling;
   reg  [3:0] din0_is_nan;
   reg  [3:0] din1_is_nan;
   reg  [3:0] nan_in;
@@ -3829,6 +3839,7 @@ function[111:0] pooling_fun;
      min_pooling = (pooling_type== 2'h2 );
      max_pooling = (pooling_type== 2'h1 );
      mean_pooling = (pooling_type== 2'h0 );
+     median_pooling = (pooling_type == 2'h3);
      din0_is_nan[0] = &data0_in[14:10] & (|data0_in[9:0]);
      din1_is_nan[0] = &data1_in[14:10] & (|data1_in[9:0]);
      din0_is_nan[1] = &data0_in[42:38] & (|data0_in[37:28]);
@@ -3840,19 +3851,23 @@ function[111:0] pooling_fun;
      nan_in = din0_is_nan | din1_is_nan;
      pooling_fun[27:0]  = mean_pooling? pooling_SUM(reg2dp_int8_en,reg2dp_int16_en,data0_valid,data0_in[27:0],data1_in[27:0]) :
          min_pooling ? (((~reg2dp_fp16_en)| (~nan_in[0] & reg2dp_fp16_en))? pooling_MIN (reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,data0_valid,data0_in[27:0],data1_in[27:0]) : (din0_is_nan[0]? data0_in[27:0] : data1_in[27:0])) :
-         max_pooling ? (((~reg2dp_fp16_en)| (~nan_in[0] & reg2dp_fp16_en))? pooling_MAX (reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,data0_valid,data0_in[27:0],data1_in[27:0]) : (din0_is_nan[0]? data0_in[27:0] : data1_in[27:0])) : 0;
+         max_pooling ? (((~reg2dp_fp16_en)| (~nan_in[0] & reg2dp_fp16_en))? pooling_MAX (reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,data0_valid,data0_in[27:0],data1_in[27:0]) : (din0_is_nan[0]? data0_in[27:0] : data1_in[27:0])) :
+         median_pooling ? (((~reg2dp_fp16_en)| (~nan_in[0] & reg2dp_fp16_en)) ? med2d_out[27: 0] : (din0_is_nan[0]? data0_in[27:0] : data1_in[27:0]) ): 0;
       
      pooling_fun[55:28] = mean_pooling? pooling_SUM(reg2dp_int8_en,reg2dp_int16_en,data0_valid,data0_in[55:28],data1_in[55:28]) :
          min_pooling ? (((~reg2dp_fp16_en)| (~nan_in[1] & reg2dp_fp16_en))? pooling_MIN (reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,data0_valid,data0_in[55:28],data1_in[55:28]) : (din0_is_nan[1]? data0_in[55:28] : data1_in[55:28])):
-         max_pooling ? (((~reg2dp_fp16_en)| (~nan_in[1] & reg2dp_fp16_en))? pooling_MAX (reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,data0_valid,data0_in[55:28],data1_in[55:28]) : (din0_is_nan[1]? data0_in[55:28] : data1_in[55:28])): 0;
-      
+         max_pooling ? (((~reg2dp_fp16_en)| (~nan_in[1] & reg2dp_fp16_en))? pooling_MAX (reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,data0_valid,data0_in[55:28],data1_in[55:28]) : (din0_is_nan[1]? data0_in[55:28] : data1_in[55:28])) :
+         median_pooling ? (((~reg2dp_fp16_en)| (~nan_in[0] & reg2dp_fp16_en)) ? med2d_out[55:28] : (din0_is_nan[0]? data0_in[27:0] : data1_in[27:0]) ): 0;
+
      pooling_fun[83:56] = mean_pooling? pooling_SUM(reg2dp_int8_en,reg2dp_int16_en,data0_valid,data0_in[83:56],data1_in[83:56]) :
          min_pooling ? (((~reg2dp_fp16_en)| (~nan_in[2] & reg2dp_fp16_en))? pooling_MIN (reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,data0_valid,data0_in[83:56],data1_in[83:56]) : (din0_is_nan[2]? data0_in[83:56] : data1_in[83:56])) :
-         max_pooling ? (((~reg2dp_fp16_en)| (~nan_in[2] & reg2dp_fp16_en))? pooling_MAX (reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,data0_valid,data0_in[83:56],data1_in[83:56]) : (din0_is_nan[2]? data0_in[83:56] : data1_in[83:56])) : 0;
+         max_pooling ? (((~reg2dp_fp16_en)| (~nan_in[2] & reg2dp_fp16_en))? pooling_MAX (reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,data0_valid,data0_in[83:56],data1_in[83:56]) : (din0_is_nan[2]? data0_in[83:56] : data1_in[83:56])) : 
+         median_pooling ? (((~reg2dp_fp16_en)| (~nan_in[0] & reg2dp_fp16_en)) ? med2d_out[83: 56] : (din0_is_nan[0]? data0_in[27:0] : data1_in[27:0]) ): 0;
       
      pooling_fun[111:84]= mean_pooling? pooling_SUM(reg2dp_int8_en,reg2dp_int16_en,data0_valid,data0_in[111:84],data1_in[111:84]) : 
          min_pooling ? (((~reg2dp_fp16_en)| (~nan_in[3] & reg2dp_fp16_en))? pooling_MIN (reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,data0_valid,data0_in[111:84],data1_in[111:84]) : (din0_is_nan[3]? data0_in[111:84] : data1_in[111:84])) :
-         max_pooling ? (((~reg2dp_fp16_en)| (~nan_in[3] & reg2dp_fp16_en))? pooling_MAX (reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,data0_valid,data0_in[111:84],data1_in[111:84]) : (din0_is_nan[3]? data0_in[111:84] : data1_in[111:84])) : 0;
+         max_pooling ? (((~reg2dp_fp16_en)| (~nan_in[3] & reg2dp_fp16_en))? pooling_MAX (reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,data0_valid,data0_in[111:84],data1_in[111:84]) : (din0_is_nan[3]? data0_in[111:84] : data1_in[111:84])) :
+         median_pooling ? (((~reg2dp_fp16_en)| (~nan_in[0] & reg2dp_fp16_en)) ? med2d_out[111:84] : (din0_is_nan[0]? data0_in[27:0] : data1_in[27:0]) ): 0;
   end
 endfunction
  
@@ -4850,15 +4865,65 @@ $fwrite(log_file,"sel : %b , ck : %h \n", mem_re_1st_2d[7], ck_cnt);
 $fclose(log_file);
 end
 
+assign datas_valid[0] = mem_data_valid[0];
+assign datas_valid[1] = mem_data_valid[1];
+assign datas_valid[2] = mem_data_valid[2];
+assign datas_valid[3] = mem_data_valid[3];
+assign datas_valid[4] = mem_data_valid[4];
+assign datas_valid[5] = mem_data_valid[5];
+assign datas_valid[6] = mem_data_valid[6];
+assign datas_valid[7] = mem_data_valid[7];
 
-assign pooling_2d_result_0  =  mem_re_1st_2d[0] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[0]/*,mem_data0[111:0]*/,pooling_datin,mem_data0[111:0]);
-assign pooling_2d_result_1  =  mem_re_1st_2d[1] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[1]/*,mem_data1[111:0]*/,pooling_datin,mem_data1[111:0]);
-assign pooling_2d_result_2  =  mem_re_1st_2d[2] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[2]/*,mem_data2[111:0]*/,pooling_datin,mem_data2[111:0]);
-assign pooling_2d_result_3  =  mem_re_1st_2d[3] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[3]/*,mem_data3[111:0]*/,pooling_datin,mem_data3[111:0]);
-assign pooling_2d_result_4  =  mem_re_1st_2d[4] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[4]/*,mem_data4[111:0]*/,pooling_datin,mem_data4[111:0]);
-assign pooling_2d_result_5  =  mem_re_1st_2d[5] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[5]/*,mem_data5[111:0]*/,pooling_datin,mem_data5[111:0]);
-assign pooling_2d_result_6  =  mem_re_1st_2d[6] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[6]/*,mem_data6[111:0]*/,pooling_datin,mem_data6[111:0]);
-assign pooling_2d_result_7  =  mem_re_1st_2d[7] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[7]/*,mem_data7[111:0]*/,pooling_datin,mem_data7[111:0]);
+assign datas0[0] = pooling_datin;
+assign datas0[1] = pooling_datin;
+assign datas0[2] = pooling_datin;
+assign datas0[3] = pooling_datin;
+assign datas0[4] = pooling_datin;
+assign datas0[5] = pooling_datin;
+assign datas0[6] = pooling_datin;
+assign datas0[7] = pooling_datin;
+
+assign datas1[0] = mem_data0[111:0];
+assign datas1[1] = mem_data1[111:0];
+assign datas1[2] = mem_data2[111:0];
+assign datas1[3] = mem_data3[111:0];
+assign datas1[4] = mem_data4[111:0];
+assign datas1[5] = mem_data5[111:0];
+assign datas1[6] = mem_data6[111:0];
+assign datas1[7] = mem_data7[111:0];
+
+assign cores_enable[0] = ~(mem_re_1st_2d[0]);
+assign cores_enable[1] = ~(mem_re_1st_2d[1]);
+assign cores_enable[2] = ~(mem_re_1st_2d[2]);
+assign cores_enable[3] = ~(mem_re_1st_2d[3]);
+assign cores_enable[4] = ~(mem_re_1st_2d[4]);
+assign cores_enable[5] = ~(mem_re_1st_2d[5]);
+assign cores_enable[6] = ~(mem_re_1st_2d[6]);
+assign cores_enable[0] = ~(mem_re_1st_2d[7]);
+
+NV_NVDLA_PDP_CORE_med2d_core med2d_core(
+  .reg2dp_int8_en(reg2dp_int8_en),
+  .reg2dp_int16_en(reg2dp_int16_en),
+  .reg2dp_fp16_en(reg2dp_fp16_en),
+  .pooling_type(pooling_type_cfg[1:0]),
+  .kernel_w(reg2dp_kernel_width),
+  .kernel_h(reg2dp_cube_in_height),
+  .data0_valid(datas_valid),
+  .core_enable(cores_enable),
+  .data0(datas0), 
+  .data1(datas1),
+  .med2d_out(med2d_out) 
+);
+
+
+assign pooling_2d_result_0  =  mem_re_1st_2d[0] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[0]/*,mem_data0[111:0]*/,pooling_datin,mem_data0[111:0],med2d_out[0]);
+assign pooling_2d_result_1  =  mem_re_1st_2d[1] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[1]/*,mem_data1[111:0]*/,pooling_datin,mem_data1[111:0], med2d_out[1]);
+assign pooling_2d_result_2  =  mem_re_1st_2d[2] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[2]/*,mem_data2[111:0]*/,pooling_datin,mem_data2[111:0], med2d_out[2]);
+assign pooling_2d_result_3  =  mem_re_1st_2d[3] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[3]/*,mem_data3[111:0]*/,pooling_datin,mem_data3[111:0], med2d_out[3]);
+assign pooling_2d_result_4  =  mem_re_1st_2d[4] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[4]/*,mem_data4[111:0]*/,pooling_datin,mem_data4[111:0], med2d_out[4]);
+assign pooling_2d_result_5  =  mem_re_1st_2d[5] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[5]/*,mem_data5[111:0]*/,pooling_datin,mem_data5[111:0], med2d_out[5]);
+assign pooling_2d_result_6  =  mem_re_1st_2d[6] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[6]/*,mem_data6[111:0]*/,pooling_datin,mem_data6[111:0], med2d_out[6]);
+assign pooling_2d_result_7  =  mem_re_1st_2d[7] ? pooling_datin : pooling_fun(reg2dp_int8_en,reg2dp_int16_en,reg2dp_fp16_en,pooling_type_cfg[1:0],mem_data_valid[7]/*,mem_data7[111:0]*/,pooling_datin,mem_data7[111:0], med2d_out[7]);
 assign pooling_2d_info_0    =  {wr_line_end_2d,mem_data0[114:112]};
 assign pooling_2d_info_1    =  {wr_line_end_2d,mem_data1[114:112]};
 assign pooling_2d_info_2    =  {wr_line_end_2d,mem_data2[114:112]}; 

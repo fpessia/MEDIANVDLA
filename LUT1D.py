@@ -60,7 +60,7 @@ def decoding(paked_info, lut, print_lut = False):
 
 
     #combo1
-    i = LSBs_i | (msb1 << 5)
+    i = LSBs_i | (msb1 << 5) 
     j = LSBs_j | (msb2 << 5)
     k = LSBs_k | (msb3 << 5)
     if i <= j <= k :
@@ -129,6 +129,7 @@ for int8_i in uint8_MSB_input1:
 
 print("LUT SIZE : "+ str(lut_size))
 print("MAX ADDR : " + str(MAX_ADDR))
+
 
 #ENCODING/DECODING PROCEDURE VALIDATION
 uint8_MSB_input1 = np.arange(0, 256, 1).tolist()
