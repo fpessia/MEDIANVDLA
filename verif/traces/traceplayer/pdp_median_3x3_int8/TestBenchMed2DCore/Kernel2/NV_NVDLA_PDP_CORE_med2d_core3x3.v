@@ -1744,6 +1744,7 @@ assign operands1[3][3] = (sorted_combos_operands1[3][0]) ? combos_operands1[3][3
                       (sorted_combos_operands1[3][22]) ? combos_operands1[3][3][22][7 : 0] :
                       (sorted_combos_operands1[3][23]) ? combos_operands1[3][3][23][7 : 0] : zeros_operand1;
 
+
 /*now that i reconstruct the operands --> extrapolate median point*/
 assign median_comparator_tree_flags[0][0] = ($signed(operands2[0][0]) <= $signed(operands1[0][3])) ? 1'b1 : 1'b0;
 assign median_comparator_tree_flags[0][1] = ($signed(operands1[0][0]) <= $signed(operands2[0][2])) ? 1'b1 : 1'b0;
@@ -1753,7 +1754,7 @@ assign median_comparator_tree_flags[0][4] = ($signed(operands2[0][1]) <= $signed
 assign median_comparator_tree_flags[0][5] = ($signed(operands1[0][2]) <= $signed(operands2[0][0])) ? 1'b1 : 1'b0;
 assign median_comparator_tree_flags[0][6] = ($signed(operands2[0][1]) <= $signed(operands1[0][1])) ? 1'b1 : 1'b0;
 assign median_comparator_tree_flags[0][7] = ($signed(operands1[0][3]) <= $signed(operands1[0][1])) ? 1'b1 : 1'b0;
-assign median_comparator_tree_flags[0][8] = ($signed(operands2[0][1]) <= $signed(operands1[0][1])) ? 1'b1 : 1'b0;
+assign median_comparator_tree_flags[0][8] = ($signed(operands2[0][2]) <= $signed(operands1[0][1])) ? 1'b1 : 1'b0;
 
 assign median_comparator_tree_flags[1][0] = ($signed(operands2[1][0]) <= $signed(operands1[1][3])) ? 1'b1 : 1'b0;
 assign median_comparator_tree_flags[1][1] = ($signed(operands1[1][0]) <= $signed(operands2[1][2])) ? 1'b1 : 1'b0;
@@ -1763,7 +1764,7 @@ assign median_comparator_tree_flags[1][4] = ($signed(operands2[1][1]) <= $signed
 assign median_comparator_tree_flags[1][5] = ($signed(operands1[1][2]) <= $signed(operands2[1][0])) ? 1'b1 : 1'b0;
 assign median_comparator_tree_flags[1][6] = ($signed(operands2[1][1]) <= $signed(operands1[1][1])) ? 1'b1 : 1'b0;
 assign median_comparator_tree_flags[1][7] = ($signed(operands1[1][3]) <= $signed(operands1[1][1])) ? 1'b1 : 1'b0;
-assign median_comparator_tree_flags[1][8] = ($signed(operands2[1][1]) <= $signed(operands1[1][1])) ? 1'b1 : 1'b0;
+assign median_comparator_tree_flags[1][8] = ($signed(operands2[1][2]) <= $signed(operands1[1][1])) ? 1'b1 : 1'b0;
 
 assign median_comparator_tree_flags[2][0] = ($signed(operands2[2][0]) <= $signed(operands1[2][3])) ? 1'b1 : 1'b0;
 assign median_comparator_tree_flags[2][1] = ($signed(operands1[2][0]) <= $signed(operands2[2][2])) ? 1'b1 : 1'b0;
@@ -1773,7 +1774,7 @@ assign median_comparator_tree_flags[2][4] = ($signed(operands2[2][1]) <= $signed
 assign median_comparator_tree_flags[2][5] = ($signed(operands1[2][2]) <= $signed(operands2[2][0])) ? 1'b1 : 1'b0;
 assign median_comparator_tree_flags[2][6] = ($signed(operands2[2][1]) <= $signed(operands1[2][1])) ? 1'b1 : 1'b0;
 assign median_comparator_tree_flags[2][7] = ($signed(operands1[2][3]) <= $signed(operands1[2][1])) ? 1'b1 : 1'b0;
-assign median_comparator_tree_flags[2][8] = ($signed(operands2[2][1]) <= $signed(operands1[2][1])) ? 1'b1 : 1'b0;
+assign median_comparator_tree_flags[2][8] = ($signed(operands2[2][2]) <= $signed(operands1[2][1])) ? 1'b1 : 1'b0;
 
 assign median_comparator_tree_flags[3][0] = ($signed(operands2[3][0]) <= $signed(operands1[3][3])) ? 1'b1 : 1'b0;
 assign median_comparator_tree_flags[3][1] = ($signed(operands1[3][0]) <= $signed(operands2[3][2])) ? 1'b1 : 1'b0;
@@ -1783,7 +1784,7 @@ assign median_comparator_tree_flags[3][4] = ($signed(operands2[3][1]) <= $signed
 assign median_comparator_tree_flags[3][5] = ($signed(operands1[3][2]) <= $signed(operands2[3][0])) ? 1'b1 : 1'b0;
 assign median_comparator_tree_flags[3][6] = ($signed(operands2[3][1]) <= $signed(operands1[3][1])) ? 1'b1 : 1'b0;
 assign median_comparator_tree_flags[3][7] = ($signed(operands1[3][3]) <= $signed(operands1[3][1])) ? 1'b1 : 1'b0;
-assign median_comparator_tree_flags[3][8] = ($signed(operands2[3][1]) <= $signed(operands1[3][1])) ? 1'b1 : 1'b0;
+assign median_comparator_tree_flags[3][8] = ($signed(operands2[3][2]) <= $signed(operands1[3][1])) ? 1'b1 : 1'b0;
 
 assign {to_extend_sign[0],operator2D_2_out[6 : 0]} = (median_comparator_tree_flags[0][0] & ~(median_comparator_tree_flags[0][1])) ? operands1[0][3] : 
                                  (median_comparator_tree_flags[0][1] & ~(median_comparator_tree_flags[0][0])) ? operands1[0][0] : 
