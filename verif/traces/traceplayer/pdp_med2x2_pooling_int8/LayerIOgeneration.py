@@ -8,19 +8,18 @@ import random
 
 if __name__ == '__main__':
     path = os.path.join(os.getcwd(),'input_feature_map.dat')
-    InputTensor = torch.zeros(64,8,8)
+    InputTensor = torch.zeros((64,8,8), dtype = torch.int16)
     #randomly generating input tensor
+    hex_bytes = []
+    for i in range(256):
+        hex_bytes.append(i-128)
+    
     for c in range(64):
         for w in range(8):
             for h in range(8):
-                hex_bytes= [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
-                #generate MSB
-                MSB = int(random.choice(hex_bytes)) 
-                InputTensor[c,w,h] += MSB*16
-                #generate LSB
-                LSB = int(random.choice(hex_bytes))
-                InputTensor[c,w,h] += LSB
-                #byte 3/4 --> all zeros
+                #generate int8
+                InputTensor[c,w,h] = int(random.choice(hex_bytes))
+
     
     #Storing in memory Surface packed, Little Endianess
     I = open(path, 'a')
@@ -29,8 +28,8 @@ if __name__ == '__main__':
     for c in range(64):
         for w in range(8):
             for h in range(8):
-                Lsb = int(InputTensor[c,w,h] % 16)
-                MsB = int(InputTensor[c,w,h] / 16)
+                Lsb = int(InputTensor[c,w,h]) & 0x0F 
+                MsB = (int(InputTensor[c,w,h]) & 0x0F0) >> 4
                 s = '0x'
                 if MsB < 10 : 
                     s +=  str(MsB)
@@ -70,7 +69,10 @@ if __name__ == '__main__':
                     print(Lsb)
                     sys.exit()
                 s += ' '
-                s += '0x00'
+                if InputTensor[c,w,h].item() > 0 : 
+                    s += '0x00'
+                else : 
+                    s += '0xFF'
                 s += ' '
                 lines[count].append(s)
                 count += 1
@@ -97,8 +99,8 @@ if __name__ == '__main__':
     for c in range(c_o):
         for w in range(w_o):
             for h in range(h_o):
-                Lsb = int(OutputTensor[c,w,h]) % 16
-                MsB = int(OutputTensor[c,w,h] /  16)
+                Lsb = int(OutputTensor[c,w,h]) & 0x0F
+                MsB = (int(OutputTensor[c,w,h]) & 0x0F0) >> 4
                 s = '0x'
                 if MsB < 10 : 
                     s +=  str(MsB)
@@ -138,7 +140,10 @@ if __name__ == '__main__':
                     print(Lsb)
                     sys.exit()
                 s += ' '
-                s += '0x00'
+                if OutputTensor[c,w,h].item() > 0 :
+                    s += '0x00'
+                else:
+                    s += '0xFF'
                 s += ' '
                 lines[count].append(s)
                 count += 1
