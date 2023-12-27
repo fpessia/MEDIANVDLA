@@ -35,17 +35,17 @@ if __name__ == '__main__':
                 if MsB < 10 : 
                     s +=  str(MsB)
                 elif MsB == 10:
-                    s += 'A'
+                    s += 'a'
                 elif MsB == 11:
-                    s += 'B'
+                    s += 'b'
                 elif MsB == 12:
-                    s += 'C'
+                    s += 'c'
                 elif MsB == 13:
-                    s += 'D'
+                    s += 'd'
                 elif MsB == 14 : 
-                    s += 'E'
+                    s += 'e'
                 elif MsB == 15:
-                    s += 'F'
+                    s += 'f'
                 else:
                     print('Error while translating msb in hex')
                     print(MsB)
@@ -54,17 +54,17 @@ if __name__ == '__main__':
                 if Lsb < 10 : 
                     s +=  str(Lsb)
                 elif Lsb == 10:
-                    s += 'A'
+                    s += 'a'
                 elif Lsb == 11:
-                    s += 'B'
+                    s += 'b'
                 elif Lsb == 12:
-                    s += 'C'
+                    s += 'c'
                 elif Lsb == 13:
-                    s += 'D'
+                    s += 'd'
                 elif Lsb == 14 : 
-                    s += 'E'
+                    s += 'e'
                 elif Lsb == 15:
-                    s+= 'F'
+                    s+= 'f'
                 else:
                     print('Error while translating lsb in hex')
                     print(Lsb)
@@ -103,17 +103,17 @@ if __name__ == '__main__':
                 if MsB < 10 : 
                     s +=  str(MsB)
                 elif MsB == 10:
-                    s += 'A'
+                    s += 'a'
                 elif MsB == 11:
-                    s += 'B'
+                    s += 'b'
                 elif MsB == 12:
-                    s += 'C'
+                    s += 'c'
                 elif MsB == 13:
-                    s += 'D'
+                    s += 'd'
                 elif MsB == 14 : 
-                    s += 'E'
+                    s += 'e'
                 elif MsB == 15:
-                    s += 'F'
+                    s += 'f'
                 else:
                     print('Error while translating msb in hex')
                     print(MsB)
@@ -122,17 +122,17 @@ if __name__ == '__main__':
                 if Lsb < 10 : 
                     s +=  str(Lsb)
                 elif Lsb == 10:
-                    s += 'A'
+                    s += 'a'
                 elif Lsb == 11:
-                    s += 'B'
+                    s += 'b'
                 elif Lsb == 12:
-                    s += 'C'
+                    s += 'c'
                 elif Lsb == 13:
-                    s += 'D'
+                    s += 'd'
                 elif Lsb == 14 : 
-                    s += 'E'
+                    s += 'e'
                 elif Lsb == 15:
-                    s+= 'F'
+                    s+= 'f'
                 else:
                     print('Error while translating lsb in hex')
                     print(Lsb)
