@@ -668,8 +668,8 @@ always@(pooling_type_cfg) begin
 end
 NV_NVDLA_PDP_CORE_med1d_core med1d_core_1(
     .core_enable(median_core_enable),
-    .reg2dp_int8_en(reg2dp_int8_en),
-    .reg2dp_int16_en(reg2dp_int16_en),
+    .reg2dp_int8_en(reg2dp_int16_en),
+    .reg2dp_int16_en(reg2dp_int8_en),
     .reg2dp_fp16_en(reg2dp_fp16_en),
     .data0(int_pool_cur_dat[21 : 0]),
     .data1(int_pool_datin_ext[21 : 0]),
@@ -678,8 +678,8 @@ NV_NVDLA_PDP_CORE_med1d_core med1d_core_1(
 
 NV_NVDLA_PDP_CORE_med1d_core med1d_core_2(
     .core_enable(median_core_enable),
-    .reg2dp_int8_en(reg2dp_int8_en),
-    .reg2dp_int16_en(reg2dp_int16_en),
+    .reg2dp_int8_en(reg2dp_int16_en),
+    .reg2dp_int16_en(reg2dp_int8_en),
     .reg2dp_fp16_en(reg2dp_fp16_en),
     .data0(int_pool_cur_dat[43 : 22]),
     .data1(int_pool_datin_ext[43 : 22]),
@@ -688,8 +688,8 @@ NV_NVDLA_PDP_CORE_med1d_core med1d_core_2(
 
 NV_NVDLA_PDP_CORE_med1d_core med1d_core_3(
     .core_enable(median_core_enable),
-    .reg2dp_int8_en(reg2dp_int8_en),
-    .reg2dp_int16_en(reg2dp_int16_en),
+    .reg2dp_int8_en(reg2dp_int16_en),
+    .reg2dp_int16_en(reg2dp_int8_en),
     .reg2dp_fp16_en(reg2dp_fp16_en),
     .data0(int_pool_cur_dat[65 : 44]),
     .data1(int_pool_datin_ext[65 : 44]),
@@ -698,8 +698,8 @@ NV_NVDLA_PDP_CORE_med1d_core med1d_core_3(
 
 NV_NVDLA_PDP_CORE_med1d_core med1d_core_4(
     .core_enable(median_core_enable),
-    .reg2dp_int8_en(reg2dp_int8_en),
-    .reg2dp_int16_en(reg2dp_int16_en),
+    .reg2dp_int8_en(reg2dp_int16_en),
+    .reg2dp_int16_en(reg2dp_int8_en),
     .reg2dp_fp16_en(reg2dp_fp16_en),
     .data0(int_pool_cur_dat[87 : 66]),
     .data1(int_pool_datin_ext[87 : 66]),
@@ -708,13 +708,14 @@ NV_NVDLA_PDP_CORE_med1d_core med1d_core_4(
 
 
 /*DEBUGGING*/
+/*
 always @(int_pooling) begin
 integer log_file;
-log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/pdp_max_pooling_int16/log_file8.txt", "a");
-$fwrite(log_file,"A[21 : 0] : %h , B[27 : 0] : %h \t", int_pool_cur_dat[21 : 0],int_pool_datin_ext[21 : 0]);
-$fwrite(log_file,"A[43 : 28] : %h , B[27 : 0] : %h \t", int_pool_cur_dat[43 : 22],int_pool_datin_ext[43 : 22]);
-$fwrite(log_file,"A[65 : 56] : %h , B[27 : 0] : %h \t", int_pool_cur_dat[65 : 44],int_pool_datin_ext[65 : 44]);
-$fwrite(log_file,"A[87 : 0] : %h , B[27 : 0] : %h \t", int_pool_cur_dat[87 : 66],int_pool_datin_ext[87 : 66]);
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIAN/verif/traces/traceplayer/pdp_max_pooling_int8/log_file8.txt", "a");
+$fwrite(log_file,"A[21 : 0] : %h , B[21 : 0] : %h , O[21 : 0] : %h \t", int_pool_cur_dat[21 : 0],int_pool_datin_ext[21 : 0],int_pooling[21 : 0]);
+$fwrite(log_file,"A[43 : 28] : %h , B[27 : 0] : %h , O[43 : 22] : %h\t", int_pool_cur_dat[43 : 22],int_pool_datin_ext[43 : 22],int_pooling[43 : 22]);
+$fwrite(log_file,"A[65 : 56] : %h , B[27 : 0] : %h , O[65 : 44] : %h\t", int_pool_cur_dat[65 : 44],int_pool_datin_ext[65 : 44],int_pooling[65 : 44]);
+$fwrite(log_file,"A[87 : 0] : %h , B[27 : 0] : %h , O[87 : 66] : %h\t", int_pool_cur_dat[87 : 66],int_pool_datin_ext[87 : 66],int_pooling[87 : 66]);
 $fwrite(log_file," ck : %h \n",  ck_cnt);
 $fwrite(log_file);
 end
@@ -727,6 +728,7 @@ end else begin
   ck_cnt <= ck_cnt + 1;
 end
 end
+*/
 /*END DEBUGGING*/
 
 assign pooling_result = (pooling_din_1st_sync ? datain_ext_sync : int_pooling_sync);

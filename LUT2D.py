@@ -108,8 +108,8 @@ def write_lut(lut,file):
     file.close()
     
 
-ToTest = False
-ToWrite = True
+ToTest = True
+ToWrite = False
 
 #LUT GENERATION
 uint8_MSB_input1 = np.arange(0, 16, 1).tolist()

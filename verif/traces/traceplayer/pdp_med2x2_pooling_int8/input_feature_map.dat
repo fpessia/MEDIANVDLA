@@ -1,0 +1,22 @@
+# dumped @ 2016-8-8 Mon 21:9:39
+W=0x8
+H=0x8
+C=0x40
+#BPE=0x1
+Data_type=0x24 #DATA_TYPE_2D_FEATURE_DATA_PACKED
+Kernel_num=0x0
+Line_stride=0x100
+Surface_stride=0x800
+#surfaceNum=0x2
+#residueChannel=0xf
+#lineSizeBytes=0x100
+#surfaceSizeBytes=0x800
+#cubeNumW=0x8
+#cubeNumH=0x8
+#cube_w=0x1
+#cube_h=0x1
+#cube_c=0x10
+#cube_fill_zeros=0x1
+Precision=INT16
+#2D data dump, uncompressed
+Data_size=0x2000

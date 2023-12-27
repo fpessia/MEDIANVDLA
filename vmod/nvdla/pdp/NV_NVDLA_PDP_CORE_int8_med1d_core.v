@@ -55,19 +55,16 @@ assign B_MSBs = B_wire[21 : 20];
 
 assign paked_A = (A_MSBs[1] & A_MSBs[0]);
 assign paked_B = (B_MSBs[1] & B_MSBs[0]);
-
-assign sel_op = (~(A_MSBs[1]) & ~(B_MSBs[1])) ? 2'b0 : 
-                ((A_MSBs[1] & ~(A_MSBs[0])) | (B_MSBs[1] & ~(B_MSBs[0]))) ? 2'b1 : 
-                ( paked_A | paked_B) ? 2'h2 : 2'b0; 
-
-//operator 1 , zero discart, flag for operator2 next cycle
 assign zero_wired_A = (A_wire == 22'h0) ? 1'b1  : 1'b0 ;
 assign zero_wired_B = (B_wire == 22'h0) ? 1'b1  : 1'b0 ;
-assign operator1_output[21] = 1'b1;
-assign operator1_output[20 : 8] = 13'b0;
+
+assign sel_op = (zero_wired_A || zero_wired_B) ? 2'b0 : 
+                ( paked_A | paked_B) ? 2'h2 : 2'b1; 
+
+//operator 1 , zero discart
+assign operator1_output[21 : 8] = 14'b0;
 assign operator1_output[7 : 0] = zero_wired_A ? B_wire[7 : 0] : 
-                                 zero_wired_B ? A_wire[7 : 0] : 
-                                 comparison_result ? B_wire[7 : 0] : A_wire[7 : 0] ;
+                                 zero_wired_B ? A_wire[7 : 0] : 8'b0;
 
 
 //operator 2 , 2 uint8  sorting and concatenation + flag for operator 3 if kernel size is equal to 3, otherwise ready for core2D

@@ -37,6 +37,7 @@ assign  uint8_data0 = (reg2dp_int8_en & core_enable) ? data0 : 22'b0;
 assign  uint8_data1 = (reg2dp_int8_en & core_enable) ? data1 : 22'b0;
 
 assign enable_uint_core = (reg2dp_int8_en & core_enable);
+
 NV_NVDLA_PDP_CORE_int8_med1d_core uint8_med_core(
         .enable_core(enable_uint_core),
         .uint8_A(uint8_data0),
