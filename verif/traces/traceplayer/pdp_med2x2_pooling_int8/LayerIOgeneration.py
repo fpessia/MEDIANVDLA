@@ -69,7 +69,7 @@ if __name__ == '__main__':
                     print(Lsb)
                     sys.exit()
                 s += ' '
-                if InputTensor[c,w,h].item() > 0 : 
+                if InputTensor[c,w,h].item() >= 0 : 
                     s += '0x00'
                 else : 
                     s += '0xff'
@@ -140,7 +140,7 @@ if __name__ == '__main__':
                     print(Lsb)
                     sys.exit()
                 s += ' '
-                if OutputTensor[c,w,h].item() > 0 :
+                if OutputTensor[c,w,h].item() >= 0 :
                     s += '0x00'
                 else:
                     s += '0xff'
