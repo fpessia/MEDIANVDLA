@@ -72,7 +72,7 @@ if __name__ == '__main__':
                 if InputTensor[c,w,h].item() > 0 : 
                     s += '0x00'
                 else : 
-                    s += '0xFF'
+                    s += '0xff'
                 s += ' '
                 lines[count].append(s)
                 count += 1
@@ -143,7 +143,7 @@ if __name__ == '__main__':
                 if OutputTensor[c,w,h].item() > 0 :
                     s += '0x00'
                 else:
-                    s += '0xFF'
+                    s += '0xff'
                 s += ' '
                 lines[count].append(s)
                 count += 1
