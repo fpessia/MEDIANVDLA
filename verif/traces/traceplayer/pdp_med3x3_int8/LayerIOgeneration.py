@@ -88,7 +88,7 @@ if __name__ == '__main__':
     #Now I allocate median pooling layer, execute it and store the results
     path = os.path.join(os.getcwd(), 'output_feature_map.dat')
     O = open(path, 'w+')
-    MedFilter = Median_pooling_layer(pooling_size=2,stride_x=1,stride_y=1)
+    MedFilter = Median_pooling_layer(pooling_size=3,stride_x=1,stride_y=1)
     OutputTensor = MedFilter.forward(InputTensor)
     print(OutputTensor)
     c_o,w_o,h_o = OutputTensor.size()
