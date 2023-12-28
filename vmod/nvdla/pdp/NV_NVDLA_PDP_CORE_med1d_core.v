@@ -4,6 +4,7 @@ module NV_NVDLA_PDP_CORE_med1d_core(
    input       reg2dp_int8_en,
    input       reg2dp_int16_en,
    input       reg2dp_fp16_en,
+   input[2:0] reg2dp_kernel_width,
    input[21:0]  data0,
    input[21:0]  data1,
    output [21:0] pooling_MEDIAN
@@ -40,6 +41,7 @@ assign enable_uint_core = (reg2dp_int8_en & core_enable);
 
 NV_NVDLA_PDP_CORE_int8_med1d_core uint8_med_core(
         .enable_core(enable_uint_core),
+        .reg2dp_kernel_width(reg2dp_kernel_width),
         .uint8_A(uint8_data0),
         .uint8_B(uint8_data1),
         .uint8_med_out(uint8_med_out)

@@ -2635,7 +2635,8 @@ assign {pdp_din_lc_sync,last_c_sync, last_out_en_sync,cur_datin_disable_sync,poo
  assign pooling_din_last[0] = unit1d_en[0] & (((strip_xcnt_psize== pooling_size_h_cfg[2:0]) & (unit1d_cnt_pooling==3'd0)) | strip_width_end) ; 
 
 NV_NVDLA_PDP_CORE_unit1d unit1d_0 (
-   .nvdla_core_clk          (nvdla_core_clk)                              //|< i
+    .reg2dp_kernel_width     (reg2dp_kernel_width)
+   ,.nvdla_core_clk          (nvdla_core_clk)                              //|< i
   ,.nvdla_core_rstn         (nvdla_core_rstn)                             //|< i
   ,.average_pooling_en      (average_pooling_en)                          //|< w
   ,.cur_datin_disable       (cur_datin_disable)                           //|< r
@@ -2672,7 +2673,8 @@ NV_NVDLA_PDP_CORE_unit1d unit1d_0 (
  assign pooling_din_last[1] = unit1d_en[1] & (((strip_xcnt_psize== pooling_size_h_cfg[2:0]) & (unit1d_cnt_pooling==3'd1)) | strip_width_end) ; 
 
 NV_NVDLA_PDP_CORE_unit1d unit1d_1 (
-   .nvdla_core_clk          (nvdla_core_clk)                              //|< i
+  .reg2dp_kernel_width     (reg2dp_kernel_width)
+  ,.nvdla_core_clk          (nvdla_core_clk)                              //|< i
   ,.nvdla_core_rstn         (nvdla_core_rstn)                             //|< i
   ,.average_pooling_en      (average_pooling_en)                          //|< w
   ,.cur_datin_disable       (cur_datin_disable)                           //|< r
@@ -2709,7 +2711,8 @@ NV_NVDLA_PDP_CORE_unit1d unit1d_1 (
  assign pooling_din_last[2] = unit1d_en[2] & (((strip_xcnt_psize== pooling_size_h_cfg[2:0]) & (unit1d_cnt_pooling==3'd2)) | strip_width_end) ; 
 
 NV_NVDLA_PDP_CORE_unit1d unit1d_2 (
-   .nvdla_core_clk          (nvdla_core_clk)                              //|< i
+  .reg2dp_kernel_width     (reg2dp_kernel_width)
+  , .nvdla_core_clk          (nvdla_core_clk)                              //|< i
   ,.nvdla_core_rstn         (nvdla_core_rstn)                             //|< i
   ,.average_pooling_en      (average_pooling_en)                          //|< w
   ,.cur_datin_disable       (cur_datin_disable)                           //|< r
@@ -2746,7 +2749,8 @@ NV_NVDLA_PDP_CORE_unit1d unit1d_2 (
  assign pooling_din_last[3] = unit1d_en[3] & (((strip_xcnt_psize== pooling_size_h_cfg[2:0]) & (unit1d_cnt_pooling==3'd3)) | strip_width_end) ; 
 
 NV_NVDLA_PDP_CORE_unit1d unit1d_3 (
-   .nvdla_core_clk          (nvdla_core_clk)                              //|< i
+  .reg2dp_kernel_width     (reg2dp_kernel_width)
+  , .nvdla_core_clk          (nvdla_core_clk)                              //|< i
   ,.nvdla_core_rstn         (nvdla_core_rstn)                             //|< i
   ,.average_pooling_en      (average_pooling_en)                          //|< w
   ,.cur_datin_disable       (cur_datin_disable)                           //|< r
@@ -2784,7 +2788,8 @@ NV_NVDLA_PDP_CORE_unit1d unit1d_3 (
  assign pooling_din_last[4] = unit1d_en[4] & (((strip_xcnt_psize== pooling_size_h_cfg[2:0]) & (unit1d_cnt_pooling==3'd4)) | strip_width_end) ; 
 
 NV_NVDLA_PDP_CORE_unit1d unit1d_4 (
-   .nvdla_core_clk          (nvdla_core_clk)                              //|< i
+  .reg2dp_kernel_width     (reg2dp_kernel_width)
+  , .nvdla_core_clk          (nvdla_core_clk)                              //|< i
   ,.nvdla_core_rstn         (nvdla_core_rstn)                             //|< i
   ,.average_pooling_en      (average_pooling_en)                          //|< w
   ,.cur_datin_disable       (cur_datin_disable)                           //|< r
@@ -2821,7 +2826,8 @@ NV_NVDLA_PDP_CORE_unit1d unit1d_4 (
  assign pooling_din_last[5] = unit1d_en[5] & (((strip_xcnt_psize== pooling_size_h_cfg[2:0]) & (unit1d_cnt_pooling==3'd5)) | strip_width_end) ; 
 
 NV_NVDLA_PDP_CORE_unit1d unit1d_5 (
-   .nvdla_core_clk          (nvdla_core_clk)                              //|< i
+  .reg2dp_kernel_width     (reg2dp_kernel_width)
+  , .nvdla_core_clk          (nvdla_core_clk)                              //|< i
   ,.nvdla_core_rstn         (nvdla_core_rstn)                             //|< i
   ,.average_pooling_en      (average_pooling_en)                          //|< w
   ,.cur_datin_disable       (cur_datin_disable)                           //|< r
@@ -2858,7 +2864,8 @@ NV_NVDLA_PDP_CORE_unit1d unit1d_5 (
  assign pooling_din_last[6] = unit1d_en[6] & (((strip_xcnt_psize== pooling_size_h_cfg[2:0]) & (unit1d_cnt_pooling==3'd6)) | strip_width_end) ; 
 
 NV_NVDLA_PDP_CORE_unit1d unit1d_6 (
-   .nvdla_core_clk          (nvdla_core_clk)                              //|< i
+  .reg2dp_kernel_width     (reg2dp_kernel_width)
+  , .nvdla_core_clk          (nvdla_core_clk)                              //|< i
   ,.nvdla_core_rstn         (nvdla_core_rstn)                             //|< i
   ,.average_pooling_en      (average_pooling_en)                          //|< w
   ,.cur_datin_disable       (cur_datin_disable)                           //|< r
@@ -2895,7 +2902,8 @@ NV_NVDLA_PDP_CORE_unit1d unit1d_6 (
  assign pooling_din_last[7] = unit1d_en[7] & (((strip_xcnt_psize== pooling_size_h_cfg[2:0]) & (unit1d_cnt_pooling==3'd7)) | strip_width_end) ; 
 
 NV_NVDLA_PDP_CORE_unit1d unit1d_7 (
-   .nvdla_core_clk          (nvdla_core_clk)                              //|< i
+  .reg2dp_kernel_width     (reg2dp_kernel_width)
+  , .nvdla_core_clk          (nvdla_core_clk)                              //|< i
   ,.nvdla_core_rstn         (nvdla_core_rstn)                             //|< i
   ,.average_pooling_en      (average_pooling_en)                          //|< w
   ,.cur_datin_disable       (cur_datin_disable)                           //|< r

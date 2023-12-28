@@ -9,9 +9,9 @@ touch log_file7.txt
 touch log_file8.txt
 cd ../../../
 cd verilator
-make run TEST=pdp_max_pooling_int8
+make run TEST=pdp_med2x2_pooling_int8
 cd ../
-cd traces/traceplayer/pdp_max_pooling_int8/waves
+cd traces/traceplayer/pdp_med2x2_pooling_int8/waves
 mkdir $1
 cd ../
 mv log_file0.txt ./waves/$1

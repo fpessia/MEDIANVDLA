@@ -3,6 +3,7 @@
 
 module NV_NVDLA_PDP_CORE_int8_med1d_core(
 input enable_core, //to reduce power consumption from LUT
+input [2:0] reg2dp_kernel_width,
 input [21 : 0] uint8_A,
 input [21 : 0] uint8_B,
 output[21 : 0] uint8_med_out
@@ -15,6 +16,7 @@ wire  [1 : 0] sel_op;
 wire          operator1;
 wire          operator2;
 wire          operator3;
+wire          operator4;
 
 wire [21 : 0] operator1_output;
 wire          zero_wired_A;
@@ -34,6 +36,13 @@ wire         paked_B;
 wire         comparison1;
 wire         comaprison2;
 
+wire               operator4_act;
+wire[1 : 0][7 : 0] suboperand_A;
+wire[1 : 0][7 : 0] suboperand_B;
+wire[7 : 0]        min_max;
+wire[7 : 0]        max_min;
+wire[21 : 0]       operator4_output;
+wire               to_extend_signs;
 
 
 
@@ -47,6 +56,8 @@ wire [3 : 0][6 : 0] to_decode;
 assign neg_A = (uint8_A[21 : 8] == 14'b11111111111111) ? 1'b1 : 1'b0;
 assign neg_B = (uint8_B[21 : 8] == 14'b11111111111111) ? 1'b1 : 1'b0;
 
+assign operator4_act = (uint8_A[21 : 16] == 6'b110000) & (uint8_B[21 : 16] == 6'b110000);
+
 assign A_wire = neg_A ? (uint8_A & 22'h0000FF) : uint8_A;
 assign B_wire = neg_B ? (uint8_B & 22'h0000FF) : uint8_B;
 assign A_MSBs = A_wire[21 : 20];
@@ -59,7 +70,8 @@ assign zero_wired_A = (A_wire == 22'h0) ? 1'b1  : 1'b0 ;
 assign zero_wired_B = (B_wire == 22'h0) ? 1'b1  : 1'b0 ;
 
 assign sel_op = (zero_wired_A || zero_wired_B) ? 2'b0 : 
-                ( paked_A | paked_B) ? 2'h2 : 2'b1; 
+                ( paked_A & paked_B & reg2dp_kernel_width == 3'h2) ? 2'h2 :
+                (reg2dp_kernel_width == 3'h1 & operator4_act) ? 2'b11 :  2'b1; 
 
 //operator 1 , zero discart
 assign operator1_output[21 : 8] = 14'b0;
@@ -108,14 +120,28 @@ NV_NVDLA_PDP_CORE_med1d_lut LUT(
     .decoded_msb_k(unused_decored_k)
 );
 
+
+
+/*OPERATOR 4 , EARLY MEDIAN CALCULATION 2X2*/
+assign suboperand_A[0] = uint8_A[7 : 0];
+assign suboperand_A[1] = uint8_A[15 : 8];
+assign suboperand_B[0] = uint8_B[7 : 0];
+assign suboperand_B[1] = uint8_B[15 : 8];
+
+assign min_max = ($signed(suboperand_A[0]) < $signed(suboperand_B[0])) ? suboperand_A[0] : suboperand_B[0];
+assign max_min = ($signed(suboperand_A[1]) < $signed(suboperand_B[1])) ? suboperand_B[1] : suboperand_A[1];
+assign {to_extend_signs, operator4_output[6 : 0]} = ($signed(min_max) < $signed(max_min)) ? min_max : max_min;
+assign operator4_output[21 : 7] = {15{to_extend_signs}};
 /*operator selection&propagation*/
 assign operator1 = (sel_op == 2'h0);
 assign operator2 = (sel_op == 2'h1);
 assign operator3 = (sel_op == 2'h2);
+assign operator4 = (sel_op == 2'h3);
 
 assign uint8_med_out = (operator1) ? operator1_output : 
                         (operator2) ? operator2_output:
-                        (operator3) ? operator3_output : 0;
+                        (operator3) ? operator3_output :
+                        (operator4) ? operator4_output : 0;
                    
 endmodule
 

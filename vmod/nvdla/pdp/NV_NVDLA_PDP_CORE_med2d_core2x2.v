@@ -5,8 +5,11 @@ module NV_NVDLA_PDP_CORE_med2d_core2x2(
     input      enable,
     output[111 : 0] Median2x2
 );
-
-wire [3: 0]  double_control;
+/*
+wire [3: 0]  control;
+wire [3 : 0] double_control_A;
+wire [3 : 0] double_control_B;
+*/
 wire [3 : 0][27 : 0] operands_A;
 wire [3 : 0][27 : 0] operands_B;
 wire [3:0][1 : 0][7 : 0] suboperand_A;
@@ -28,12 +31,22 @@ assign operands_B[0] = B[27 : 0];
 assign operands_B[1] = B[55 : 28];
 assign operands_B[2] = B[83 : 56];
 assign operands_B[3] = B[111 : 84];
+/*
+assign control[0] = (operands_A[0][21 : 20] == 2'h3) & (operands_B[0][21 : 20] == 2'h3) & enable; 
+assign control[1] = (operands_A[1][21 : 20] == 2'h3) & (operands_B[1][21 : 20] == 2'h3) & enable; 
+assign control[2] = (operands_A[2][21 : 20] == 2'h3) & (operands_B[2][21 : 20] == 2'h3) & enable; 
+assign control[3] = (operands_A[3][21 : 20] == 2'h3) & (operands_B[3][21 : 20] == 2'h3) & enable; 
 
-assign double_control[0] = (operands_A[0][21 : 20] == 2'h3) & (operands_B[0][21 : 20] == 2'h3) & enable; 
-assign double_control[1] = (operands_A[1][21 : 20] == 2'h3) & (operands_B[1][21 : 20] == 2'h3) & enable; 
-assign double_control[2] = (operands_A[2][21 : 20] == 2'h3) & (operands_B[2][21 : 20] == 2'h3) & enable; 
-assign double_control[3] = (operands_A[3][21 : 20] == 2'h3) & (operands_B[3][21 : 20] == 2'h3) & enable; 
+assign double_control_A[0] = (operands_A[0][21 : 20] == 2'h3); 
+assign double_control_A[1] = (operands_A[1][21 : 20] == 2'h3); 
+assign double_control_A[2] = (operands_A[2][21 : 20] == 2'h3); 
+assign double_control_A[3] = (operands_A[3][21 : 20] == 2'h3); 
 
+assign double_control_B[0] = (operands_B[0][21 : 20] == 2'h3); 
+assign double_control_B[1] = (operands_B[1][21 : 20] == 2'h3); 
+assign double_control_B[2] = (operands_B[2][21 : 20] == 2'h3); 
+assign double_control_B[3] = (operands_B[3][21 : 20] == 2'h3); 
+*/
 
 /*sub operand division*/
 assign suboperand_A[0][0] = operands_A[0][7 : 0];
@@ -81,12 +94,28 @@ assign M[83 : 63] = {21{to_extend_signs[2]}};
 assign M[111 : 91] = {21{to_extend_signs[3]}};
 
 
+assign Median2x2[111 : 84] = enable ? M[111 : 84] : 28'b0;
+assign Median2x2[83 : 56] = enable ? M[83 : 56] : 28'b0;
+assign Median2x2[55 : 28] = enable ? M[55 : 28] : 28'b0;
+assign Median2x2[27 : 0] = enable ? M[27 : 0] : 28'b0;
 
-assign Median2x2[111 : 84] = (double_control[3]) ? M[111 : 84] : 28'b0;
-assign Median2x2[83 : 56] = (double_control[2]) ? M[83 : 56] : 28'b0;
-assign Median2x2[55 : 28] = (double_control[1]) ? M[55 : 28] : 28'b0;
-assign Median2x2[27 : 0] = (double_control[0]) ? M[27 : 0] : 28'b0;
+/*
+assign Median2x2[111 : 84] = (control[3]) ? M[111 : 84] :  
+                             (double_control_A[3] & ~(double_control_B[3]) & enable) ? operands_A[3] : 
+                             (double_control_B[3] & ~(double_control_A[3]) & enable) ? operands_B[3] :  28'b0;
 
+assign Median2x2[83 : 56] = (control[2]) ? M[83 : 56] :  
+                             (double_control_A[2] & ~(double_control_B[2]) & enable) ? operands_A[2] : 
+                             (double_control_B[2] & ~(double_control_A[2]) & enable) ? operands_B[2] :  28'b0;
 
+assign Median2x2[55 : 28] = (control[1]) ? M[55 : 28] :  
+                             (double_control_A[1] & ~(double_control_B[1]) & enable) ? operands_A[1] : 
+                             (double_control_B[1] & ~(double_control_A[1]) & enable) ? operands_B[1] :  28'b0;
+
+assign Median2x2[27 : 0] = (control[0]) ? M[27 : 0] :  
+                             (double_control_A[0] & ~(double_control_B[0]) & enable) ? operands_A[0] : 
+                             (double_control_B[0] & ~(double_control_A[0]) & enable) ? operands_B[0] :  28'b0;
+
+*/
 endmodule
 
