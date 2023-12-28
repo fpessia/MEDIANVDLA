@@ -148,7 +148,7 @@ if __name__ == '__main__':
                 s += ' '
                 lines[count].append(s)
                 count += 1
-                if count == 196 : 
+                if count == 144 : 
                     count = 0
     for line in lines : 
         for string in line : 
