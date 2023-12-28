@@ -12,7 +12,8 @@ if __name__ == '__main__':
     #randomly generating input tensor
     hex_bytes = []
     for i in range(256):
-        hex_bytes.append(i-128)
+        if i != 128 : 
+            hex_bytes.append(i-128)
     
     for c in range(64):
         for w in range(8):
