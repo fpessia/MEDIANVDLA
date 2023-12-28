@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     
     #Storing in memory Surface packed, Little Endianess
-    I = open(path, 'a')
+    I = open(path, 'w+')
     lines = [[] for _ in range(256)]
     count = 0
     for c in range(64):
@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
     #Now I allocate median pooling layer, execute it and store the results
     path = os.path.join(os.getcwd(), 'output_feature_map.dat')
-    O = open(path, 'a')
+    O = open(path, 'w+')
     MedFilter = Median_pooling_layer(pooling_size=2,stride_x=1,stride_y=1)
     OutputTensor = MedFilter.forward(InputTensor)
     print(OutputTensor)
