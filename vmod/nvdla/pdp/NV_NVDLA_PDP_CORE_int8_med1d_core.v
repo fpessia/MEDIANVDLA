@@ -70,7 +70,7 @@ assign zero_wired_A = (A_wire == 22'h0) ? 1'b1  : 1'b0 ;
 assign zero_wired_B = (B_wire == 22'h0) ? 1'b1  : 1'b0 ;
 
 assign sel_op = (zero_wired_A || zero_wired_B) ? 2'b0 : 
-                ( paked_A & paked_B & reg2dp_kernel_width == 3'h2) ? 2'h2 :
+                ((paked_A || paked_B) & reg2dp_kernel_width == 3'h2) ? 2'h2 :
                 (reg2dp_kernel_width == 3'h1 & operator4_act) ? 2'b11 :  2'b1; 
 
 //operator 1 , zero discart

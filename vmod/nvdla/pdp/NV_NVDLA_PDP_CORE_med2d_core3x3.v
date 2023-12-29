@@ -174,13 +174,13 @@ assign combos_A[0][1][0] = {MSBs_A[1][0] , lsbs_suboperands_A[0][1]};
 assign combos_A[0][2][0] = {MSBs_A[2][0] , lsbs_suboperands_A[0][2]};
 assign combos_A[0][0][1] = {MSBs_A[0][0] , lsbs_suboperands_A[0][0]}; 
 assign combos_A[0][1][1] = {MSBs_A[2][0] , lsbs_suboperands_A[0][1]}; 
-assign combos_A[0][2][1] = {MSBs_A[1][0] , lsbs_suboperands_A[0][2]}; 
+assign combos_A[0][2][1] = {MSBs_A[1][0] , lsbs_suboperands_A[0][2]};
 assign combos_A[0][0][2] = {MSBs_A[1][0] , lsbs_suboperands_A[0][0]}; 
 assign combos_A[0][1][2] = {MSBs_A[0][0] , lsbs_suboperands_A[0][1]}; 
 assign combos_A[0][2][2] = {MSBs_A[2][0] , lsbs_suboperands_A[0][2]}; 
 assign combos_A[0][0][3] = {MSBs_A[1][0] , lsbs_suboperands_A[0][0]}; 
 assign combos_A[0][1][3] = {MSBs_A[2][0] , lsbs_suboperands_A[0][1]}; 
-assign combos_A[0][2][3] = {MSBs_A[0][0] , lsbs_suboperands_A[0][2]}; 
+assign combos_A[0][2][3] = {MSBs_A[0][0] , lsbs_suboperands_A[0][2]};
 assign combos_A[0][0][4] = {MSBs_A[2][0] , lsbs_suboperands_A[0][0]}; 
 assign combos_A[0][1][4] = {MSBs_A[0][0] , lsbs_suboperands_A[0][1]}; 
 assign combos_A[0][2][4] = {MSBs_A[1][0] , lsbs_suboperands_A[0][2]}; 
@@ -188,7 +188,8 @@ assign combos_A[0][0][5] = {MSBs_A[2][0] , lsbs_suboperands_A[0][0]};
 assign combos_A[0][1][5] = {MSBs_A[1][0] , lsbs_suboperands_A[0][1]}; 
 assign combos_A[0][2][5] = {MSBs_A[0][0] , lsbs_suboperands_A[0][2]}; 
 
-assign combos_A[1][0][0] = {MSBs_A[1][1] , lsbs_suboperands_A[1][0]}; 
+
+assign combos_A[1][0][0] = {MSBs_A[0][1] , lsbs_suboperands_A[1][0]}; 
 assign combos_A[1][1][0] = {MSBs_A[1][1] , lsbs_suboperands_A[1][1]}; 
 assign combos_A[1][2][0] = {MSBs_A[2][1] , lsbs_suboperands_A[1][2]};
 assign combos_A[1][0][1] = {MSBs_A[0][1] , lsbs_suboperands_A[1][0]}; 
@@ -199,10 +200,10 @@ assign combos_A[1][1][2] = {MSBs_A[0][1] , lsbs_suboperands_A[1][1]};
 assign combos_A[1][2][2] = {MSBs_A[2][1] , lsbs_suboperands_A[1][2]}; 
 assign combos_A[1][0][3] = {MSBs_A[1][1] , lsbs_suboperands_A[1][0]}; 
 assign combos_A[1][1][3] = {MSBs_A[2][1] , lsbs_suboperands_A[1][1]}; 
-assign combos_A[1][2][3] = {MSBs_A[0][1] , lsbs_suboperands_A[1][2]}; 
+assign combos_A[1][2][3] = {MSBs_A[0][1] , lsbs_suboperands_A[1][2]};
 assign combos_A[1][0][4] = {MSBs_A[2][1] , lsbs_suboperands_A[1][0]}; 
 assign combos_A[1][1][4] = {MSBs_A[0][1] , lsbs_suboperands_A[1][1]}; 
-assign combos_A[1][2][4] = {MSBs_A[1][1] , lsbs_suboperands_A[1][2]}; 
+assign combos_A[1][2][4] = {MSBs_A[1][1] , lsbs_suboperands_A[1][2]};
 assign combos_A[1][0][5] = {MSBs_A[2][1] , lsbs_suboperands_A[1][0]}; 
 assign combos_A[1][1][5] = {MSBs_A[1][1] , lsbs_suboperands_A[1][1]}; 
 assign combos_A[1][2][5] = {MSBs_A[0][1] , lsbs_suboperands_A[1][2]}; 
@@ -835,94 +836,117 @@ assign combos_operands1[0][0][0] = {decoded_msbs_w[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][0] = {decoded_msbs_k[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][0] = {decoded_msbs_j[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][0] = {decoded_msbs_i[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][1] = {decoded_msbs_k[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][1] = {decoded_msbs_w[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][1] = {decoded_msbs_j[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][1] = {decoded_msbs_i[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][2] = {decoded_msbs_w[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][2] = {decoded_msbs_j[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][2] = {decoded_msbs_k[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][2] = {decoded_msbs_i[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][3] = {decoded_msbs_j[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][3] = {decoded_msbs_w[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][3] = {decoded_msbs_k[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][3] = {decoded_msbs_i[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][4] = {decoded_msbs_k[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][4] = {decoded_msbs_j[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][4] = {decoded_msbs_w[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][4] = {decoded_msbs_i[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][5] = {decoded_msbs_j[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][5] = {decoded_msbs_k[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][5] = {decoded_msbs_w[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][5] = {decoded_msbs_i[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][6] = {decoded_msbs_w[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][6] = {decoded_msbs_k[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][6] = {decoded_msbs_i[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][6] = {decoded_msbs_j[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][7] = {decoded_msbs_k[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][7] = {decoded_msbs_w[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][7] = {decoded_msbs_i[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][7] = {decoded_msbs_j[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][8] = {decoded_msbs_w[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][8] = {decoded_msbs_i[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][8] = {decoded_msbs_k[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][8] = {decoded_msbs_j[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][9] = {decoded_msbs_i[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][9] = {decoded_msbs_w[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][9] = {decoded_msbs_k[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][9] = {decoded_msbs_j[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][10] = {decoded_msbs_k[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][10] = {decoded_msbs_i[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][10] = {decoded_msbs_w[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][10] = {decoded_msbs_j[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][11] = {decoded_msbs_i[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][11] = {decoded_msbs_k[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][11] = {decoded_msbs_w[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][11] = {decoded_msbs_j[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][12] = {decoded_msbs_w[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][12] = {decoded_msbs_j[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][12] = {decoded_msbs_i[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][12] = {decoded_msbs_k[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][13] = {decoded_msbs_j[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][13] = {decoded_msbs_w[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][13] = {decoded_msbs_i[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][13] = {decoded_msbs_k[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][14] = {decoded_msbs_w[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][14] = {decoded_msbs_i[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][14] = {decoded_msbs_j[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][14] = {decoded_msbs_k[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][15] = {decoded_msbs_i[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][15] = {decoded_msbs_w[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][15] = {decoded_msbs_j[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][15] = {decoded_msbs_k[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][16] = {decoded_msbs_j[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][16] = {decoded_msbs_i[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][16] = {decoded_msbs_w[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][16] = {decoded_msbs_k[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][17] = {decoded_msbs_i[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][17] = {decoded_msbs_j[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][17] = {decoded_msbs_w[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][17] = {decoded_msbs_k[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][18] = {decoded_msbs_k[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][18] = {decoded_msbs_j[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][18] = {decoded_msbs_i[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][18] = {decoded_msbs_w[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][19] = {decoded_msbs_j[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][19] = {decoded_msbs_k[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][19] = {decoded_msbs_i[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][19] = {decoded_msbs_w[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][20] = {decoded_msbs_k[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][20] = {decoded_msbs_i[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][20] = {decoded_msbs_j[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][20] = {decoded_msbs_w[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][21] = {decoded_msbs_i[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][21] = {decoded_msbs_k[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][21] = {decoded_msbs_j[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][21] = {decoded_msbs_w[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][22] = {decoded_msbs_j[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][22] = {decoded_msbs_i[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][22] = {decoded_msbs_k[0], LSBs_operands1[0][2]};
 assign combos_operands1[0][3][22] = {decoded_msbs_w[0], LSBs_operands1[0][3]};
+
 assign combos_operands1[0][0][23] = {decoded_msbs_i[0], LSBs_operands1[0][0]};
 assign combos_operands1[0][1][23] = {decoded_msbs_j[0], LSBs_operands1[0][1]};
 assign combos_operands1[0][2][23] = {decoded_msbs_k[0], LSBs_operands1[0][2]};
@@ -1744,6 +1768,18 @@ assign operands1[3][3] = (sorted_combos_operands1[3][0]) ? combos_operands1[3][3
                       (sorted_combos_operands1[3][22]) ? combos_operands1[3][3][22][7 : 0] :
                       (sorted_combos_operands1[3][23]) ? combos_operands1[3][3][23][7 : 0] : zeros_operand1;
 
+
+/*
+always @(operator2D_2_out) begin
+integer log_file;
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIANVDLA/verif/traces/traceplayer/pdp_med3x3_int8/log_file9.txt", "a");
+$fwrite(log_file,"A : %h, B : %h, C: %h, D : %h ,E: %h, F : %h, G : %h , codes_A : %d \n", operands1[0][0], operands1[0][1], operands1[0][2], operands1[0][3], operands2[0][0], operands2[0][1], operands2[0][2], codes_A[0]);
+$fwrite(log_file,"A : %h, B : %h, C: %h, D : %h ,E: %h, F : %h, G : %h , codes_A : %d \n", operands1[1][0], operands1[1][1], operands1[1][2], operands1[1][3], operands2[1][0], operands2[1][1], operands2[1][2], codes_A[1]);
+$fwrite(log_file,"A : %h, B : %h, C: %h, D : %h ,E: %h, F : %h, G : %h , codes_A : %d \n", operands1[2][0], operands1[2][1], operands1[2][2], operands1[2][3], operands2[2][0], operands2[2][1], operands2[2][2], codes_A[2]);
+$fwrite(log_file,"A : %h, B : %h, C: %h, D : %h ,E: %h, F : %h, G : %h , codes_A : %d \n", operands1[3][0], operands1[3][1], operands1[3][2], operands1[3][3], operands2[3][0], operands2[3][1], operands2[3][2], codes_A[3]);
+$fclose(log_file);
+end
+*/
 
 /*now that i reconstruct the operands --> extrapolate median point*/
 assign median_comparator_tree_flags[0][0] = ($signed(operands2[0][0]) <= $signed(operands1[0][3])) ? 1'b1 : 1'b0;

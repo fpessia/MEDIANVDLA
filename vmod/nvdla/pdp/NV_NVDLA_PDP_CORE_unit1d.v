@@ -716,7 +716,7 @@ NV_NVDLA_PDP_CORE_med1d_core med1d_core_4(
 /*
 always @(int_pooling) begin
 integer log_file;
-log_file = $fopen("/home/francesco/Desktop/TESI/MEDIANVDLA/verif/traces/traceplayer/pdp_med2x2_pooling_int8/log_file8.txt", "a");
+log_file = $fopen("/home/francesco/Desktop/TESI/MEDIANVDLA/verif/traces/traceplayer/pdp_med3x3_int8/log_file8.txt", "a");
 $fwrite(log_file,"A[21 : 0] : %h , B[21 : 0] : %h , O[21 : 0] : %h \t", int_pool_cur_dat[21 : 0],int_pool_datin_ext[21 : 0],int_pooling[21 : 0]);
 $fwrite(log_file,"A[43 : 28] : %h , B[27 : 0] : %h , O[43 : 22] : %h\t", int_pool_cur_dat[43 : 22],int_pool_datin_ext[43 : 22],int_pooling[43 : 22]);
 $fwrite(log_file,"A[65 : 56] : %h , B[27 : 0] : %h , O[65 : 44] : %h\t", int_pool_cur_dat[65 : 44],int_pool_datin_ext[65 : 44],int_pooling[65 : 44]);

@@ -187,8 +187,7 @@ assign combos_A[0][2][4] = {MSBs_A[1][0] , lsbs_suboperands_A[0][2]};
 assign combos_A[0][0][5] = {MSBs_A[2][0] , lsbs_suboperands_A[0][0]}; 
 assign combos_A[0][1][5] = {MSBs_A[1][0] , lsbs_suboperands_A[0][1]}; 
 assign combos_A[0][2][5] = {MSBs_A[0][0] , lsbs_suboperands_A[0][2]}; 
-
-assign combos_A[1][0][0] = {MSBs_A[1][1] , lsbs_suboperands_A[1][0]}; 
+assign combos_A[1][0][0] = {MSBs_A[0][1] , lsbs_suboperands_A[1][0]}; 
 assign combos_A[1][1][0] = {MSBs_A[1][1] , lsbs_suboperands_A[1][1]}; 
 assign combos_A[1][2][0] = {MSBs_A[2][1] , lsbs_suboperands_A[1][2]};
 assign combos_A[1][0][1] = {MSBs_A[0][1] , lsbs_suboperands_A[1][0]}; 
