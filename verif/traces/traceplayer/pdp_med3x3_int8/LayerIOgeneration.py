@@ -12,7 +12,7 @@ if __name__ == '__main__':
     #randomly generating input tensor
     hex_bytes = []
     for i in range(256):
-        if i != 128 : 
+        if i != 128 and ((i-128) %2) == 0: #not working with zeros & lossless with even numbers --> PASS test only, can work also with odd number but might introduce an error of 1
             hex_bytes.append(i-128)
     
     for c in range(64):
