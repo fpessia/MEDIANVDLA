@@ -1,7 +1,7 @@
-# NVDLA Open Source Hardware, version 1.0
+# MEDIANVDLA Open Source Hardware, version 1.0
 ---
 
-## NVDLA
+## MEDIANVDLA
 
 The NVIDIA Deep Learning Accelerator (NVDLA) is a free and open architecture that promotes
 a standard way to design deep learning inference accelerators. With its modular architecture,
@@ -46,7 +46,7 @@ release.  In this repository, you will find:
   * tools -- tools used for building the RTL and running simulation/synthesis/etc.
   * spec -- RTL configuration option settings.
 
-## Building the NVDLA Hardware
+## Building the MEDIANNVDLA Hardware
 
 See the [integrator's manual](http://nvdla.org/integration_guide.html) for more information on 
 the setup and other build commands and options.  The basic build command to compile the design
@@ -54,3 +54,29 @@ and run a short sanity simulation is:
 
     bin/tmake
 
+## Testing MEDIANVDLA
+In order to perform a functional test performing execution of  a Median Pooling Layer please ensure following additonal requirements:
+* Anaconda3
+* PyTorch
+* build Verilator V5.019  from source code
+
+```python
+#!/bin/bash
+# Cloning GitHub repo
+git clone git@github.com:fpessia/MEDIANVDLA.git
+#running configuration tree script
+cd MEDIANVDLA
+make
+# Computing golden values
+cd verif/traces/traceplayer/pdp_med2x2_pooling_int8
+python LayerIOgeneration.py
+# Compiling Soc with Verilator V5.019 
+#configured from source code (Ubuntu 20.04)
+cd ../../../../
+./tools/bin/tmake -build verilator
+#Running simulation script 2x2 kernel conf
+cd verif/verilator
+make run TEST=pdp_med2x2_pooling_int8
+#or 3x3
+#make run TEST=pdp_med3x3_int8
+ 
